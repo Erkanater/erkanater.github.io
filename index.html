@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Путешествие: принципы организации и проведения занятий</title>
+<style>
+:root{--bg:#0b1730;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050b18}}
+:root[data-theme="dark"]{--bg:#050b18}
+html,body{height:100%;margin:0;overflow:hidden}*{box-sizing:border-box}
+body{background:var(--bg);font-family:Inter,"Segoe UI",Arial,sans-serif;color:#0b2545;user-select:none}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:linear-gradient(#7fd0ff 0%,#d8f1ff 60%,#fdf1d4 100%);cursor:pointer}
+.lay{position:absolute;left:0;bottom:0;height:100%;transition:transform 2.3s cubic-bezier(.45,0,.3,1);background-repeat:repeat-x}
+#far{width:5000px;background-position:0 bottom;background-size:1600px 420px;height:100%;background-position:0 100%}
+#mid{width:9000px;background-size:1200px 360px;background-position:0 100%}
+#world{width:11600px}
+.sun{position:absolute;right:160px;top:70px;width:150px;height:150px;border-radius:50%;background:#ffe27a;box-shadow:0 0 80px #fff2a8}
+.cl{position:absolute;font-size:120px;opacity:.9;animation:dr 60s linear infinite}
+@keyframes dr{from{transform:translateX(-300px)}to{transform:translateX(2300px)}}
+#gnd{position:absolute;left:0;bottom:0;width:11600px;height:200px;background:#3c8c4e;border-top:14px solid #2f6f3e}
+#gnd:after{content:"";position:absolute;left:0;right:0;top:60px;height:60px;background:#e8c98a;border-radius:30px;box-shadow:inset 0 -8px #cfae6c}
+.prop{position:absolute;bottom:170px;width:240px;text-align:center;font-size:170px;line-height:1;filter:drop-shadow(0 14px 6px rgba(0,0,0,.25))}
+.prop small{display:block;font:700 30px Inter,Arial,sans-serif;color:#fff;background:#0b2545;border-radius:14px;padding:6px 10px;margin-top:6px}
+#hero{position:absolute;left:380px;bottom:150px;width:130px;height:220px;transition:transform .3s}
+#hero svg{width:100%;height:100%;overflow:visible}
+.leg{transform-origin:50px 112px}.walk .l1{animation:lg .38s infinite alternate}.walk .l2{animation:lg .38s infinite alternate-reverse}
+@keyframes lg{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}
+.walk #hero svg{animation:bob .38s infinite alternate}@keyframes bob{to{transform:translateY(-8px)}}
+#card{position:absolute;left:100px;top:100px;width:1720px;min-height:200px;max-height:600px;background:rgba(255,255,255,.95);border-radius:32px;padding:34px 44px;box-shadow:0 20px 50px rgba(11,37,69,.35);opacity:0;transform:translateY(40px) scale(.97);transition:.5s}
+#card.show{opacity:1;transform:none}
+.tag{display:inline-block;background:#0f6cbd;color:#fff;font-weight:700;font-size:26px;padding:6px 20px;border-radius:12px;margin-bottom:12px}
+h1{font-size:84px;margin:0;line-height:1.05}h2{font-size:56px;margin:0 0 18px;line-height:1.1}
+p{margin:0}.sb{font-size:38px;color:#3b5575;margin:10px 0 24px}
+.row{display:flex;gap:20px}.col{flex:1}
+.bx{flex:1;background:#eaf3fc;border:3px solid #cfe2f5;border-radius:20px;padding:20px 22px;font-size:28px;line-height:1.25}
+.bx b{display:block;font-size:30px;margin-bottom:6px}.dk{background:#0b2545;color:#fff;border-color:#0b2545}
+.n{font-size:56px;font-weight:800;color:#0f6cbd;line-height:1}.dk .n,.dk b{color:#5ccbff}
+.i{opacity:0;animation:pop .5s forwards}@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1;transform:none}}
+ul{margin:0;padding-left:34px;font-size:32px;line-height:1.5}
+.ar{align-self:center;font-size:48px;color:#0f6cbd;font-weight:800}
+.pl{display:inline-block;background:#0f6cbd;color:#fff;border-radius:999px;padding:6px 20px;font-weight:700;font-size:28px;margin:4px 4px 4px 0}
+.q{background:#0b2545;color:#fff;border-radius:22px;padding:26px 30px;font-size:38px;font-weight:700;line-height:1.3}
+#hud{position:absolute;left:0;right:0;top:0;height:70px;display:flex;align-items:center;gap:20px;padding:0 100px;font-weight:800;font-size:28px;color:#0b2545}
+#dots{display:flex;gap:14px;flex:1;justify-content:center}
+#dots i{width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid #0b2545;cursor:pointer;transition:.3s}
+#dots i.on{background:#ffb703;transform:scale(1.4)}#dots i.vis{background:#0f6cbd}
+#hint{position:absolute;right:100px;bottom:36px;font-size:34px;font-weight:800;color:#fff;background:#0b2545;border-radius:20px;padding:12px 28px;animation:pu 1.2s infinite}
+@keyframes pu{50%{transform:translateX(12px)}}
+#back{position:absolute;left:100px;bottom:36px;font-size:30px;font-weight:700;color:#fff;background:#0b2545;border-radius:20px;padding:12px 28px;opacity:.7}
+.lit{font-size:20px;line-height:1.3;color:#3b5575;margin-top:12px}
+</style></head><body>
+<div id="stage">
+<div class="sun"></div><div class="cl" style="top:130px;left:0">☁️</div><div class="cl" style="top:260px;left:600px;animation-duration:80s">☁️</div>
+<div class="lay" id="far"></div><div class="lay" id="mid"></div>
+<div class="lay" id="world"><div id="gnd"></div></div>
+<div id="hero"><svg viewBox="0 0 100 160"><g class="leg l2"><rect x="46" y="108" width="14" height="48" rx="6" fill="#1b3a6b"/><rect x="44" y="150" width="22" height="9" rx="4" fill="#3a2a1a"/></g>
+<rect x="14" y="52" width="30" height="50" rx="8" fill="#8a5a2b"/><rect x="34" y="46" width="42" height="68" rx="14" fill="#0f6cbd"/>
+<circle cx="56" cy="30" r="22" fill="#f6c9a0"/><path d="M30 28q26-34 52 0z" fill="#d94841"/><rect x="26" y="26" width="60" height="8" rx="4" fill="#b8312b"/><circle cx="66" cy="32" r="3" fill="#222"/>
+<g class="leg l1"><rect x="40" y="108" width="14" height="48" rx="6" fill="#254c8a"/><rect x="38" y="150" width="22" height="9" rx="4" fill="#3a2a1a"/></g>
+<rect x="68" y="58" width="12" height="40" rx="6" fill="#f6c9a0" transform="rotate(-18 74 60)"/></svg></div>
+<div id="hud"><span id="lv"></span><div id="dots"></div><span id="nm"></span></div>
+<div id="card"></div><div id="back">← назад</div><div id="hint">Вперёд →</div>
+</div>
+<script>
+var SP=1500,N=7,i=0,busy=false,vis={0:1},st=document.getElementById('stage');
+function svg(s,w,h){return 'url("data:image/svg+xml,'+encodeURIComponent(s)+'")'}
+document.getElementById('far').style.backgroundImage=svg('<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420"><path d="M0 420V260Q200 120 400 240T800 200T1200 240T1600 260V420z" fill="#9ccbe4"/></svg>');
+document.getElementById('mid').style.backgroundImage=svg('<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360"><g fill="#5faa72"><path d="M80 360L160 130 240 360zM300 360L400 90 500 360zM620 360L700 160 780 360zM880 360L980 100 1080 360z"/></g><g fill="#7a5230"><rect x="150" y="340" width="20" height="20"/><rect x="390" y="340" width="20" height="20"/></g></svg>');
+var S=[
+{e:'🚩',n:'СТАРТ',h:function(){return '<span class="tag">УРОВЕНЬ 1 · СТАРТ</span><h1 class="i">ПРИНЦИПЫ организации и проведения занятий</h1><p class="sb i">Как правильно организовать и провести занятие</p><div class="row"><div class="bx i"><span class="n">1</span><br>Пришел</div><div class="bx i"><span class="n">2</span><br>Увидел</div><div class="bx i"><span class="n">3</span><br>Победил</div><div class="bx i"><span class="n">4</span><br>Праздную</div></div>'}},
+{e:'📚',n:'ТЕОРИЯ',h:function(){return '<span class="tag">УРОВЕНЬ 2 · НАУЧНАЯ ОСНОВА</span><h2>Две теории но одна карта пути</h2><div class="row"><div class="bx dk i" style="flex:1.1"><b>А.А. Вербицкий = контекстное обучение</b><ul style="font-size:30px"><li>Связь обучения с профессиональной деятельностью</li><li>Моделирование реальных ситуаций</li><li>Проблемные задания</li><li>Самостоятельность студентов</li><li>Совместная деятельность</li></ul></div><div class="col"><div class="bx i" style="margin-bottom:12px"><b>П.Я. Гальперин = поэтапное формирование действий</b></div><div class="row" style="flex-wrap:wrap"><div class="bx i"><span class="n">1</span> Мотивация</div><div class="bx i"><span class="n">2</span> Ориентировка</div></div><div class="row" style="margin-top:12px"><div class="bx i"><span class="n">3</span> Практическое действие</div><div class="bx i"><span class="n">4</span> Самостоятельное выполнение</div></div></div></div>'}},
+{e:'🧱',n:'ПОДГОТОВКА',h:function(){var a=[['Целеполагание','Конкретная цель и измеримый результат'],['Профессиональная направленность','Связь заданий с рабочими ситуациями'],['Системность и последовательность','Логичная структура занятия'],['Доступность и обоснованность','Уровень подготовки и достоверность материалов'],['Организационная подготовка','Сценарий, роли, ресурсы, время, критерии оценивания']];return '<span class="tag">УРОВЕНЬ 3 · ОРГАНИЗАЦИЯ</span><h2>Принципы организации занятий</h2><div class="row">'+a.map(function(x,k){return '<div class="bx i"><span class="n">'+(k+1)+'</span><b style="font-size:28px;margin-top:8px">'+x[0]+'</b>'+x[1]+'</div>'}).join('')+'</div>'}},
+{e:'🎓',n:'ПРОВЕДЕНИЕ',h:function(){var a=[['Активность','Участие каждого студента'],['Проблемность','Решение нестандартных задач'],['Самостоятельность','Принятие собственных решений'],['Сотрудничество','Командная работа'],['Обратная связь','Корректировка действий'],['Объективность','Оценивание по единым критериям'],['Рефлексия','Анализ ошибок и результатов']];return '<span class="tag">УРОВЕНЬ 4 · ПРОВЕДЕНИЕ</span><h2>Принципы проведения занятий</h2><div class="row" style="flex-wrap:wrap">'+a.map(function(x){return '<div class="bx i" style="flex:0 0 calc(25% - 15px)"><b>'+x[0]+'</b>'+x[1]+'</div>'}).join('')+'<div class="bx dk i" style="flex:0 0 calc(25% - 15px)"><b>Роль преподавателя</b>Организатор, координатор, консультант, эксперт</div></div>'}},
+{e:'🪜',n:'АЛГОРИТМ',h:function(){var a=[['Постановка задачи','Цель и ожидаемый результат'],['Инструктаж','Правила, роли, время'],['Практическая работа','Самостоятельное решение'],['Оценивание','Единые критерии'],['Рефлексия','Разбор ошибок и выводы']],o='';a.forEach(function(x,k){o+='<div class="bx i" style="text-align:center"><span class="n">'+(k+1)+'</span><b style="margin-top:8px">'+x[0]+'</b>'+x[1]+'</div>'+(k<4?'<span class="ar i">➜</span>':'')});return '<span class="tag">УРОВЕНЬ 5 · АЛГОРИТМ</span><h2>Алгоритм проведения эффективного занятия</h2><div class="row" style="margin-top:30px">'+o+'</div>'}},
+{e:'🖥️',n:'БОСС-МИССИЯ',h:function(){return '<span class="tag" style="background:#d94841">УРОВЕНЬ 6 · БОСС-МИССИЯ</span><h2 style="font-size:46px;margin-bottom:6px">Расследование киберинцидента</h2><p class="sb" style="font-size:28px;margin:0 0 14px">В сети организации обнаружена подозрительная активность</p><div class="row"><div class="bx i" style="font-size:25px"><b>Роли</b>Аналитик ИБ: признаки атаки<br>Сисадмин: состояние систем<br>Криминалист: цифровые следы<br>Руководитель: координация</div><div class="bx dk i" style="font-size:25px"><b>Последовательность</b>1 Исходные данные<br>2 Анализ следов<br>3 Обсуждение<br>4 Причина инцидента<br>5 Итоговый отчёт</div><div class="bx i" style="font-size:25px"><b>Критерии оценки</b>Правильность анализа<br>Обоснованность решений<br>Командное взаимодействие<br>Последовательность действий</div></div>'}},
+{e:'🏁',n:'ФИНИШ',h:function(){return '<span class="tag">УРОВЕНЬ 7 · ФИНИШ</span><h2 style="font-size:46px;margin-bottom:10px">Оценка эффективности</h2><div class="row"><ul class="i" style="flex:1;font-size:28px;line-height:1.4"><li>Достигнуты ли цели</li><li>Научились ли применять знания</li><li>Насколько обоснованы решения</li><li>Работали ли самостоятельно и совместно</li><li>Поняли ли свои ошибки</li></ul><div class="q i" style="flex:1;font-size:32px">Эффективное занятие = переход от получения знаний к самостоятельному применению знаний в профессиональной деятельности</div></div><h2 class="i" style="color:#0f6cbd;margin:14px 0 0;font-size:48px">Спасибо за внимание!</h2><p class="lit i">Литература: 1. Вербицкий А.А. Активное обучение в высшей школе: контекстный подход. М.: Высшая школа, 1991 · 2. Гальперин П.Я. Опыт изучения формирования умственных действий. Вестник Московского университета. Серия 14. Психология · 3. Вербицкий А.А. Компетентностный подход и теория контекстного обучения. М., 2004</p>'}}];
+var world=document.getElementById('world'),far=document.getElementById('far'),mid=document.getElementById('mid'),card=document.getElementById('card'),hero=document.getElementById('hero');
+S.forEach(function(s,k){var d=document.createElement('div');d.className='prop';d.style.left=(k*SP+900)+'px';d.innerHTML=s.e+'<small>'+s.n+'</small>';world.appendChild(d);var q=document.createElement('i');q.onclick=function(e){e.stopPropagation();go(k)};document.getElementById('dots').appendChild(q)});
+function cam(p){world.style.transform='translateX('+(-p)+'px)';mid.style.transform='translateX('+(-p*.55)+'px)';far.style.transform='translateX('+(-p*.2)+'px)'}
+function hud(){var d=document.getElementById('dots').children;for(var k=0;k<N;k++)d[k].className=k==i?'on':(vis[k]?'vis':'');document.getElementById('lv').textContent='УРОВЕНЬ '+(i+1)+' / '+N;document.getElementById('nm').textContent=S[i].n;document.getElementById('hint').style.display=i==N-1?'none':'block';document.getElementById('back').style.display=i==0?'none':'block'}
+function show(){card.innerHTML=S[i].h();[].forEach.call(card.querySelectorAll('.i'),function(e,k){e.style.animationDelay=(.15+k*.14)+'s'});card.classList.add('show');hud()}
+function go(n){if(busy||n==i||n<0||n>=N)return;busy=true;hero.style.transform=n<i?'scaleX(-1)':'none';card.classList.remove('show');st.classList.add('walk');var t=Math.min(2.3+Math.abs(n-i)*.4,4);[world,mid,far].forEach(function(e){e.style.transitionDuration=t+'s'});i=n;vis[i]=1;cam(i*SP);hud();setTimeout(function(){busy=false;st.classList.remove('walk');show()},t*1000+100)}
+function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform='translate(-50%,-50%) scale('+s+')';st.style.transformOrigin='center center'}
+addEventListener('resize',fit);fit();
+st.onclick=function(e){var r=st.getBoundingClientRect();go(e.clientX<r.left+r.width*.2&&i>0?i-1:i+1)};
+document.onkeydown=function(e){if(e.key=='ArrowRight'||e.key==' '||e.key=='Enter'){e.preventDefault();go(i+1)}if(e.key=='ArrowLeft')go(i-1)};
+cam(0);hud();setTimeout(show,300);
+</script></body></html>
