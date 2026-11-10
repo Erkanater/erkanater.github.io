@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>АРХИПЕЛАГ: МИР И ДУША</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef8ff;--ink:#0b2540;--mut:#4a6580;--card:#fff;--line:#cfe3f0;--tl:#0b7f86;--soft:#eaf4fb;--sea1:#c8eefa;--sea2:#5fb8de;--gold:#ffbe2e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06182b;--ink:#eaf6ff;--mut:#9fb8cc;--card:#0c2540;--line:#1d4466;--tl:#4fd8d2;--soft:#0f2f4d;--sea1:#0a3a62;--sea2:#04203a}}
+:root[data-theme="dark"]{--bg:#06182b;--ink:#eaf6ff;--mut:#9fb8cc;--card:#0c2540;--line:#1d4466;--tl:#4fd8d2;--soft:#0f2f4d;--sea1:#0a3a62;--sea2:#04203a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,var(--bg),var(--card));color:var(--ink);font:500 16px/1.55 Nunito,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;margin:0}
+button{font:800 15px Nunito,sans-serif;cursor:pointer;border:0;border-radius:16px;padding:12px 22px;color:#0b2540;background:linear-gradient(180deg,#ffd659,#ffbe2e);box-shadow:0 4px 0 #b38210,0 8px 16px rgba(255,190,46,.3);transition:transform .12s}
+button:hover{transform:translateY(-1px)}button:active{transform:translateY(3px);box-shadow:0 1px 0 #b38210}
+button.ghost{background:var(--card);color:var(--ink);box-shadow:0 3px 0 var(--line);border:1px solid var(--line)}
+button:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+button:focus-visible,input:focus-visible{outline:3px solid var(--tl);outline-offset:2px}
+.scr{display:none;min-height:100vh;padding:24px;animation:fade .5s}.scr.on{display:block}
+@keyframes fade{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+.center{max-width:820px;margin:0 auto}
+.wl{max-width:1200px;margin:0 auto;min-height:88vh;display:flex;align-items:center;gap:40px}
+.wl>div{flex:1}
+.logo{font:900 clamp(40px,7vw,72px)/1.1 "Playfair Display",serif;color:var(--tl);letter-spacing:.03em;text-shadow:0 4px 0 var(--line)}
+.sub{font:italic 700 20px "Playfair Display",serif;color:var(--mut);margin:12px 0 20px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 14px 36px rgba(20,70,110,.14)}
+input[type=text]{width:100%;padding:13px 15px;border-radius:14px;border:2px solid var(--line);background:var(--soft);color:var(--ink);font:600 16px Nunito,sans-serif;margin:6px 0 14px}
+.avs{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+.av{font-size:28px;width:56px;height:56px;border-radius:50%;padding:0;background:var(--soft);box-shadow:none;border:2px solid transparent}
+.av.sel{background:var(--gold);border-color:var(--ink);transform:scale(1.1)}
+.lay{max-width:1400px;margin:0 auto;display:flex;gap:22px;align-items:flex-start}
+.lay>div{flex:1;min-width:320px;display:flex;flex-direction:column;gap:14px}
+.hud{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{background:var(--card);border-radius:30px;padding:7px 15px;font-weight:800;border:1px solid var(--line)}
+.me{flex:1;min-width:180px}.me small{display:block;color:var(--mut);font-size:13px}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--tl),var(--gold));transition:width .8s}
+.map{perspective:1100px;border-radius:28px;overflow:hidden;border:3px solid var(--line);background:var(--sea1);box-shadow:0 22px 50px rgba(20,70,110,.25)}
+.map svg{display:block;width:100%;height:auto;transform:rotateX(var(--rx,24deg)) rotateZ(var(--rz,0deg)) scale(1.12);transform-origin:50% 65%;transition:transform .25s}
+.map.flat svg{transform:none}
+.isl{cursor:pointer}.isl:hover .land{filter:brightness(1.1)}.isl.sel .ring{opacity:1}
+.ring{opacity:0;animation:pulse 2s infinite}@keyframes pulse{50%{stroke-opacity:.4}}
+.fl{animation:fl 5s ease-in-out infinite alternate}@keyframes fl{to{transform:translateY(-6px)}}
+.wave{animation:wv 8s ease-in-out infinite alternate}@keyframes wv{to{transform:translateX(28px)}}
+.bld{animation:pop .6s cubic-bezier(.2,2,.4,1);filter:drop-shadow(0 5px 3px rgba(0,0,0,.3))}
+@keyframes pop{from{transform:translateY(-35px) scale(0);opacity:0}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:0 14px 36px rgba(20,70,110,.14)}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{flex:1;background:var(--soft);color:var(--ink);box-shadow:none;border-radius:12px;padding:10px}
+.tabs button.on{background:var(--tl);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:14px}
+.card .em{font-size:34px}.card h3{font-size:16px;margin:4px 0}
+.cost{font-size:13px;font-weight:800;color:var(--mut);margin:6px 0 10px}
+.card.done{border-color:#15b376;background:rgba(21,179,118,.12);order:99}
+.tag{font-size:11px;font-weight:800;background:var(--tl);color:#fff;border-radius:20px;padding:3px 10px;display:inline-block}
+.lock{opacity:.5}
+.modal{position:fixed;inset:0;background:rgba(10,30,50,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:40}
+.modal.on{display:flex}.modal .box{width:92%;max-width:580px;max-height:85vh;overflow-y:auto}
+.opt{display:block;width:100%;text-align:left;margin:10px 0;background:var(--soft);color:var(--ink);box-shadow:none;border:1px solid var(--line);border-radius:14px}
+.opt:hover{border-color:var(--tl)}
+.res{margin-top:14px;padding:14px;border-radius:14px;background:rgba(255,190,46,.2);font-weight:700;border:1px solid var(--gold)}
+#toasts{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:60;pointer-events:none}
+.toast{background:var(--gold);color:#0b2540;font-weight:800;padding:11px 22px;border-radius:30px;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:fade .4s,tout .4s 3.2s forwards}
+.toast.b{background:#15b376;color:#fff}@keyframes tout{to{opacity:0}}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+.stats div{background:var(--soft);border-radius:14px;padding:12px;border:1px solid var(--line)}
+.stats b{display:block;font:900 26px "Playfair Display",serif;color:var(--tl)}
+.spark{position:fixed;pointer-events:none;font-size:24px;z-index:70;animation:fly 1.3s cubic-bezier(0,.9,.2,1) forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(360deg);opacity:0}}
+.ar{border-left:5px solid var(--c);background:var(--soft);border-radius:14px;padding:12px 16px;margin:10px 0;font-size:15px}
+.ar h3{font-size:18px;margin-bottom:4px}.ar small{color:var(--mut);display:block}
+.sc{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;margin:4px 0}
+.sc span{width:150px}.sc i{display:block;height:10px;border-radius:6px;background:var(--c)}
+@media (max-width:960px){.wl,.lay{flex-direction:column}.lay>div{width:100%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:520px){.scr{padding:14px}.grid{grid-template-columns:1fr}}
+#bRes{background:linear-gradient(180deg,#7ee0a8,#15b376);color:#06301c;box-shadow:0 4px 0 #0c7a4c}
+.card svg{display:block;margin-bottom:4px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.2))}
+</style></head><body>
+<div id="toasts"></div>
+
+<section class="scr" id="welcome"><div class="wl">
+ <div>
+  <div class="logo">АРХИПЕЛАГ</div>
+  <div class="sub">Психолого-философская дидактическая игра</div>
+  <p style="font-size:17px">Каждый выбор в миссиях и строительстве отражает вашу стратегию мышления. Пройдите все миссии, постройте здание на каждом острове и узнайте свой профиль из восьми типов.</p>
+  <div class="row"><button id="bStart">НАЧАТЬ ПУТЕШЕСТВИЕ</button><button class="ghost" id="bHow">📖 Философия Игры</button></div>
+  <div class="row"><button class="ghost" id="bCont" style="display:none">ПРОДОЛЖИТЬ</button></div>
+ </div>
+ <div><svg viewBox="0 0 520 220" style="width:100%;max-width:520px"><rect width="520" height="220" rx="28" fill="var(--sea1)"/>
+  <ellipse cx="120" cy="170" rx="95" ry="26" fill="#c9a56a"/><ellipse cx="120" cy="156" rx="95" ry="26" fill="#f7e3b5"/><ellipse cx="120" cy="146" rx="75" ry="19" fill="#15b376"/><text style="display:none" x="85" y="140" font-size="38">🏝️</text><text style="display:none" x="130" y="140" font-size="30">🏛️</text>
+  <ellipse cx="320" cy="140" rx="75" ry="22" fill="#f7e3b5"/><ellipse cx="320" cy="130" rx="58" ry="16" fill="#2a8c71"/><text style="display:none" x="300" y="124" font-size="36">🌱</text>
+  <ellipse cx="440" cy="180" rx="65" ry="20" fill="#f7e3b5"/><ellipse cx="440" cy="171" rx="50" ry="14" fill="#14b5ae"/><g id="hg"></g><text style="display:none" x="424" y="166" font-size="32">🔭</text></svg></div>
+</div></section>
+
+<section class="scr" id="how"><div class="center">
+ <h2 style="font-size:36px;text-align:center;margin-bottom:14px">Философия Игры</h2>
+ <div class="box" style="line-height:1.7">
+  <h3 style="color:var(--tl)">1. Дидактическая идея</h3>
+  <p>«Архипелаг» — игра-рефлексия. Обучение строится на действии: по Дж. Дьюи, человек понимает мир, когда сам принимает решения и видит их последствия. Игрок оказывается в ситуации выбора внутри задачи, которая находится в зоне ближайшего развития (Л. С. Выготский): она достаточно проста, чтобы начать, и достаточно сложна, чтобы задуматься. Цикл опытного обучения Д. Колба — опыт, наблюдение, обобщение, проверка — повторяется в каждой миссии.</p>
+  <h3 style="color:var(--tl)">2. Как работает измерение</h3>
+  <p>В игре 7 миссий. Каждый вариант ответа даёт 2 балла основному типу мышления и 1 балл дополнительному. В финале вы получаете не ярлык, а профиль из восьми шкал: ведущий тип, дополнительный тип и баланс остальных. Строительство добавляет игровые ресурсы и открывает острова, но на профиль не влияет.</p>
+  <h3 style="color:var(--tl)">3. Как использовать на занятии</h3>
+  <p>Сначала участники проходят игру самостоятельно. Затем в парах сравнивают профили и объясняют, почему делали тот или иной выбор. В завершение обсуждают: когда сильная сторона превращается в слабую и как типы могут дополнять друг друга в команде. Именно обсуждение, а не результат, является учебной целью.</p>
+  <h3 style="color:var(--tl)">4. Научная честность</h3>
+  <p>Игра не является психодиагностическим тестом. Она не прошла стандартизацию и валидизацию, а типы опираются на известные психологические и педагогические концепции, но не воспроизводят их строго. Результат — повод для разговора о себе, а не диагноз.</p>
+  <h3 style="color:var(--tl)">5. Восемь типов</h3>
+  <div id="phiA"></div>
+ </div>
+ <div class="row" style="justify-content:center"><button id="bHowBack">Вернуться назад</button></div>
+</div></section>
+
+<section class="scr" id="profile"><div class="center" style="max-width:560px"><h2 style="font-size:34px;margin-bottom:14px">Создание личности</h2><div class="box">
+ <label for="nm">Ваше имя</label><input type="text" id="nm" maxlength="20" placeholder="Странник">
+ <div>Выберите внутренний символ</div><div class="avs" id="avs"></div>
+ <label for="an">Название вашего Архипелага</label><input type="text" id="an" maxlength="26" placeholder="Оазис Мысли">
+ <button id="bGo" style="width:100%">Войти в свой мир</button></div></div></section>
+
+<section class="scr" id="world"><div class="lay">
+ <div>
+  <div class="hud"><div class="pill me"><span id="hName"></span><small id="hArch"></small><div class="bar"><i id="xpBar"></i></div></div>
+   <button class="ghost" id="bSnd" aria-label="Звук">🔊</button><button class="ghost" id="b3d">3D</button><button class="ghost" id="bTh" aria-label="Тема">🌙</button><button id="bRes" style="display:none">📜 Мой результат</button><button class="ghost" id="bHowGame">📖</button></div>
+  <div class="map" id="map"><svg id="mapSvg" viewBox="0 0 800 460" role="img" aria-label="Карта архипелага"></svg></div>
+ </div>
+ <div>
+  <div class="hud"><div class="pill" id="hLvl"></div><div class="pill" id="hE"></div><div class="pill" id="hK"></div><div class="pill" id="hM"></div><div class="pill" id="hIs"></div></div>
+  <div class="panel"><div class="tabs"><button data-t="build" class="on">🔨 Строить</button><button data-t="miss">🧭 Миссии</button><button data-t="ach">🏆 Награды</button></div>
+   <div id="tab"></div><div class="row"><button class="ghost" id="bReset">Сбросить мир</button></div></div>
+ </div>
+</div></section>
+
+<section class="scr" id="final"><div class="center"><div class="logo" style="font-size:clamp(28px,8vw,48px)">ЗЕРКАЛО ВАШЕГО МИРА</div>
+ <div class="sub">Анализ вашего профиля</div>
+ <div class="box"><h3 id="fN"></h3><div id="fA" style="color:var(--tl);font-weight:800;margin:6px 0"></div>
+  <div id="psy" style="margin:12px 0"></div><div class="stats" id="fS"></div><div id="fAch" style="font-size:14px;color:var(--mut)"></div></div>
+ <div class="row"><button class="ghost" id="bKeep">Продолжить созерцание</button><button id="bNew">Начать новый цикл</button></div></div></section>
+
+<div class="modal" id="modal"><div class="box" id="mBox"></div></div>
+
+<script>
+(function(){
+var KEY='archipelago_v9',AVS=['🧭','🦉','🔮','🦊','⚡','🌌'];
+var ISL=[
+{n:'ОСТРОВ ИСТОКОВ',em:'🏝️',x:150,y:330,rx:110,ry:55,c:'#f7e3b5',g:'#15b376'},
+{n:'ОСТРОВ МУДРОСТИ',em:'🌱',x:380,y:200,rx:105,ry:52,c:'#ebd69d',g:'#2a8c71'},
+{n:'ОСТРОВ ГРАНИ',em:'🌊',x:640,y:310,rx:105,ry:52,c:'#f9dfa8',g:'#14b5ae'},
+{n:'ОСТРОВ СТРАТЕГИИ',em:'⛰️',x:600,y:110,rx:95,ry:46,c:'#d6e2cc',g:'#3f8572'},
+{n:'ОСТРОВ ЭВОЛЮЦИИ',em:'🍃',x:160,y:100,rx:95,ry:46,c:'#d4eaf2',g:'#2597c2'}];
+var UNLOCK=[1,2,3,4,5];
+var ARC=[
+{k:'lg',n:'Архитектор Разума',c:'#0b7f86',b:'К. Юнг (мыслительный тип); Ж. Пиаже (формальные операции)',
+ cr:'законы, расчёт, знания, образование',
+ d:'Вы опираетесь на анализ, причинно-следственные связи и проверяемые знания. Решения строите на правилах и расчёте, а неопределённость стремитесь превратить в понятную модель.',
+ s:'системность, точность, умение планировать',g:'учитывать эмоции и неформальные связи людей, допускать «достаточно хорошее» решение'},
+{k:'em',n:'Гуманист',c:'#e0457b',b:'К. Роджерс, А. Маслоу; эмоциональный интеллект (П. Сэловей, Дж. Мейер)',
+ cr:'община, доверие, эмпатия, сотрудничество',
+ d:'В центре вашей картины мира находятся человек, его переживания и достоинство. Вы строите общество на доверии и принятии, а ценность решения измеряете его влиянием на людей.',
+ s:'эмпатия, умение слушать, способность поддерживать',g:'не избегать жёстких решений и опираться на измеримые критерии'},
+{k:'ec',n:'Хранитель Природы',c:'#15934f',b:'А. Нэсс (глубинная экология); У. Бронфенбреннер (экосистемный подход)',
+ cr:'симбиоз с природой, минимальное вмешательство, изоляция ради сохранения',
+ d:'Вы видите цивилизацию частью живой системы и признаёте самостоятельную ценность природы. Стремитесь к устойчивости, бережности и долгосрочному равновесию.',
+ s:'чувство меры, ответственность за будущее, терпение',g:'не упускать возможности технологий и вовремя принимать быстрые решения'},
+{k:'tc',n:'Первопроходец',c:'#2f6fe0',b:'Дж. Форрестер (системная динамика); Э. Роджерс (диффузия инноваций)',
+ cr:'технологический прорыв, эксперимент, инновации',
+ d:'Вы ориентированы на изобретения и ускорение развития. Готовы рисковать ради нового и видите в технологиях инструмент расширения человеческих возможностей.',
+ s:'инициативность, гибкость, готовность к риску',g:'оценивать побочные эффекты и социальную цену перемен'},
+{k:'sc',n:'Дипломат',c:'#e08a1e',b:'Л. С. Выготский (социокультурная теория); Г. Гарднер (межличностный интеллект)',
+ cr:'обмен опытом, переговоры, совместная деятельность',
+ d:'Для вас развитие рождается в сотрудничестве: в обмене опытом, переговорах и общем деле. Вы умеете находить общий язык и соединять разные позиции.',
+ s:'коммуникация, кооперация, умение договариваться',g:'чётко отстаивать собственные границы и позицию'},
+{k:'cr',n:'Творец-Интуит',c:'#8a4fd6',b:'Дж. Гилфорд (дивергентное мышление); К. Юнг (интуитивный тип)',
+ cr:'воображение, нестандартные пути, красота и смысл',
+ d:'Вы доверяете воображению и неожиданным идеям, ищете нестандартные пути там, где правила не работают. Красота и смысл для вас не менее важны, чем польза.',
+ s:'оригинальность, интуиция, умение видеть новые связи',g:'доводить идеи до проверяемого результата и учитывать ограничения'},
+{k:'gd',n:'Страж Порядка',c:'#6b7b8c',b:'Л. Колберг (конвенциональный уровень морали); Г. Хофстеде (избегание неопределённости)',
+ cr:'стабильность, запас прочности, защита общего',
+ d:'Вы цените стабильность, ответственность и защиту общего. Предпочитаете проверенные решения, надёжные правила и запас прочности, чтобы сообщество оставалось в безопасности.',
+ s:'надёжность, ответственность, предусмотрительность',g:'оставлять место переменам и инакомыслию'},
+{k:'pr',n:'Стратег-Прагматик',c:'#b8860b',b:'Дж. Дьюи (прагматизм); Г. Саймон (ограниченная рациональность)',
+ cr:'эффективность, экономия ресурсов, оценка по результату',
+ d:'Вы оцениваете идеи по результатам: ценно то, что работает. Умеете распределять ограниченные ресурсы, выбирать главное и действовать быстро.',
+ s:'практичность, эффективность, чувство приоритетов',g:'не терять из виду долгосрочные смыслы и ценности'}];
+var BLD=[
+{id:'house',n:'Обитель',em:'🏡',m:4,e:2,k:0,desc:'Базовый приют для поселенцев.'},
+{id:'garden',n:'Сад Зеркал',em:'🌳',m:4,e:1,k:0,desc:'Источник покоя и энергии.'},
+{id:'library',n:'Храм Памяти',em:'🏛️',m:6,e:1,k:3,desc:'Центр накопления мудрости.'},
+{id:'school',n:'Академия Духа',em:'🏫',m:8,e:2,k:4,desc:'Кузница мастеров и мыслителей.'},
+{id:'lab',n:'Обсерватория',em:'🔭',m:8,e:4,k:5,desc:'Взгляд в глубины космоса и разума.'},
+{id:'tower',n:'Башня Света',em:'🗼',m:10,e:5,k:2,desc:'Ориентир безопасности и предвидения.'},
+{id:'research',n:'Квантовый Узел',em:'🌀',m:12,e:6,k:8,desc:'Вершина цивилизационного синтеза.'}];
+/* вариант: [текст, основной тип, дополнительный тип, ⚡, 🧠, 💎, пояснение] */
+var MIS=[
+{id:'m1',isl:0,type:'ВЕКТОР НАЧАЛА',title:'Миссия 01 · Первый импульс творения',q:'Чистый лист неизведанного мира перед вами. Какую идею вы закладываете в фундамент первой цивилизации?',xp:40,o:[
+['🏡 Община, эмпатия и живое тепло','em','sc',2,1,8,'Вы выбираете людей и доверие: общество с первых дней строится на тёплых связях.'],
+['📜 Законы, порядок и архивы смыслов','lg','gd',1,5,6,'Вы ставите во главу угла структуру, предсказуемость и память о прошлом.'],
+['🌳 Симбиоз с живой природой','ec','cr',5,1,6,'Вы бережно вплетаете цивилизацию в естественный ритм планеты.'],
+['🌀 Прорыв и технологический скачок','tc','pr',3,4,5,'Вы устремлены в будущее и создаёте принципиально новые системы.']]},
+{id:'m2',isl:0,type:'ВНУТРЕННИЙ БАЛАНС',title:'Миссия 02 · Закон дефицита',q:'Ресурсы ограничены. Что станет главным критерием их распределения?',xp:40,o:[
+['⚒️ Накопление мощи и запасов','pr','gd',0,1,12,'Прагматизм и выживание на первом месте. Вы создаёте сильную материальную базу.'],
+['⚖️ Равновесие всех сфер жизни','ec','sc',4,4,7,'Срединный путь: вы избегаете крайностей и ищете гармонию.'],
+['🎓 Инвестиции в сознание','lg','cr',2,8,3,'Вы верите, что развитый ум решит любые материальные проблемы.']]},
+{id:'m3',isl:1,type:'ЛОГИКА И ПРЕОДОЛЕНИЕ',title:'Миссия 03 · Расколотый мост',q:'Шторм разделил остров. Проём — 9 метров, у вас есть 6 брёвен по 2 метра. Ваше решение?',xp:40,o:[
+['Использовать все 6 брёвен (12 м) для надёжности','gd','lg',1,6,5,'Вы любите запас прочности и делаете на совесть.'],
+['Рассчитать точно: 5 брёвен (10 м) с запасом','pr','tc',1,1,2,'Экономичный подход: вы цените эффективность и отсутствие лишних трат.'],
+['Искать обходной путь вплавь','cr','em',0,0,1,'Вы действуете интуитивно и ищете решение вне жёстких правил.']]},
+{id:'m4',isl:1,type:'ДУХОВНЫЙ ФУНДАМЕНТ',title:'Миссия 04 · Сердце полиса',q:'Какое ключевое здание определит моральный облик вашего общества?',xp:40,o:[
+['🏫 Академия ремесел и мастеров','lg','sc',2,6,4,'Труд и мастерство облагораживают человека.'],
+['🗼 Башня предвидения бурь','gd','tc',5,3,4,'Предусмотрительность защищает общество от хаоса.'],
+['🌀 Лаборатория глубинных идей','cr','tc',3,5,4,'Постоянный поиск новых горизонтов и готовность разрушать догмы.']]},
+{id:'m5',isl:2,type:'СТРАТЕГИЯ СИНТЕЗА',title:'Миссия 05 · Архитектура гармонии',q:'Жители спорят о форме будущих сооружений. Какая эстетика должна преобладать?',xp:45,o:[
+['🏛️ Строгая геометрия и симметрия','lg','gd',2,6,5,'Вы сторонник порядка, где каждый элемент на своём месте.'],
+['🌿 Органическая архитектура, слитая с ландшафтом','ec','cr',4,3,6,'Здания вырастают из скал и деревьев, не нарушая тишину природы.'],
+['🔮 Парящие сферы и свет','tc','cr',5,5,5,'Вы опережаете время и создаёте архитектуру завтрашнего дня.']]},
+{id:'m6',isl:3,type:'ВНЕШНИЙ КОНТАКТ',title:'Миссия 06 · Чужеземный флот',q:'К вашим берегам прибыл чужой флот с предложением обмена. Как вы поступите?',xp:40,o:[
+['🤝 Открытый обмен и синтез культур','sc','em',3,7,5,'Вы открыты миру: синергия культур обогащает обе стороны.'],
+['🛡️ Торговля без раскрытия тайн','pr','tc',2,2,9,'Разумный суверенитет и защита своих границ.'],
+['🚫 Полная изоляция ради чистоты мира','ec','gd',4,1,2,'Вы бережно храните внутреннюю экосистему от внешнего влияния.']]},
+{id:'m7',isl:4,type:'ФИЛОСОФСКИЙ ФИНАЛ',title:'Миссия 07 · Суть цивилизации',q:'Какой высший принцип станет манифестом вашей эпохи?',xp:50,o:[
+['🎓 Разум и Просвещение','lg','pr',4,9,5,'Интеллект — высшая форма развития.'],
+['💻 Технологический прорыв','tc','pr',6,6,6,'Покорение пространства и времени с помощью технологий.'],
+['🌱 Симбиоз с планетой','ec','em',8,5,5,'Растворение человека в мудром ритме биосферы.'],
+['💡 Свободное творчество и интуиция','cr','em',5,8,5,'Искусство и спонтанность как высшая ценность бытия.']]}];
+var ACH=[
+{id:'first',n:'ПЕРВЫЙ ШАГ',em:'👣',d:'Завершите первую миссию'},
+{id:'arch',n:'ДЕМИУРГ',em:'📐',d:'Постройте первое сооружение'},
+{id:'expl',n:'ПЕРВООТКРЫВАТЕЛЬ',em:'🧭',d:'Откройте новый остров'},
+{id:'innov',n:'ВИЗИОНЕР',em:'💡',d:'Выполните 4 миссии'},
+{id:'master',n:'АРХИТЕКТОР МИРА',em:'👑',d:'Достигните 5 уровня'}];
+var XPL=50,S=null,sel=0,tab='build',snd=true,ac=null;
+function $(i){return document.getElementById(i)}
+function fresh(){var t={};ARC.forEach(function(a){t[a.k]=0});return{name:'',av:AVS[0],arch:'',xp:0,r:{e:6,k:4,m:12},built:[],done:{},ach:[],fin:false,snd:true,traits:t}}
+function load(){try{var j=localStorage.getItem(KEY);return j?JSON.parse(j):null}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function lvl(){return 1+Math.floor(S.xp/XPL)}
+function unl(i){return lvl()>=UNLOCK[i]}
+function beep(f,d,t){if(!snd)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.type=t||'sine';o.frequency.value=f;g.gain.value=.025;g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+function chime(){beep(587,.15);setTimeout(function(){beep(880,.15)},120);setTimeout(function(){beep(1174,.3)},240)}
+function toast(t,b){var d=document.createElement('div');d.className='toast'+(b?' b':'');d.textContent=t;$('toasts').appendChild(d);setTimeout(function(){d.remove()},3800)}
+function sparks(){for(var i=0;i<16;i++){var s=document.createElement('div');s.className='spark';s.textContent=['✨','⭐','💎'][i%3];s.style.left='50%';s.style.top='40%';s.style.setProperty('--x',(Math.random()*500-250)+'px');s.style.setProperty('--y',(Math.random()*-300-50)+'px');document.body.appendChild(s);setTimeout(function(x){x.remove()}.bind(null,s),1300)}}
+function show(id){document.querySelectorAll('.scr').forEach(function(s){s.classList.toggle('on',s.id===id)});window.scrollTo(0,0)}
+function award(id){if(S.ach.indexOf(id)>-1)return;S.ach.push(id);var a=ACH.filter(function(x){return x.id===id})[0];toast('🏆 Достижение: '+a.n,0);chime()}
+function arcHtml(a,full){return'<div class="ar" style="--c:'+a.c+'"><h3>'+a.n+'</h3><small>Научная основа: '+a.b+'</small><p style="margin:6px 0">'+a.d+'</p><b>Сильные стороны:</b> '+a.s+'.<br><b>Зона роста:</b> '+a.g+'.'+(full?'<br><b>Что приводит к типу:</b> выборы в пользу — '+a.cr+'.':'')+'</div>'}
+function checkFinal(){
+  if(S.fin)return;
+  var ok=Object.keys(S.done).length>=7;
+  for(var i=0;i<5;i++)if(!S.built.some(function(b){return b.i===i}))ok=false;
+  if(ok){S.fin=true;save();setTimeout(finale,1500)}
+}
+function gain(r,xp,t1,t2){
+  var L0=lvl();
+  S.r.e+=r.e;S.r.k+=r.k;S.r.m+=r.m;S.xp+=xp;
+  if(t1&&S.traits[t1]!==undefined)S.traits[t1]+=2;
+  if(t2&&S.traits[t2]!==undefined)S.traits[t2]+=1;
+  var L1=lvl();
+  if(L1>L0){toast('⬆️ Уровень цивилизации '+L1+'!',1);sparks();for(var i=0;i<5;i++)if(UNLOCK[i]>L0&&UNLOCK[i]<=L1){toast('🌴 Открыт остров: '+ISL[i].n,1);award('expl')}}
+  if(Object.keys(S.done).length>=4)award('innov');
+  if(L1>=5)award('master');
+  save();render();checkFinal();
+}
+var BSV={
+house:'<rect x="8" y="18" width="24" height="17" fill="#f3d9a4"/><path d="M3 20L20 5l17 15z" fill="#d9534f"/><rect x="17" y="24" width="7" height="11" fill="#8a5a2b"/><rect x="10" y="22" width="5" height="5" fill="#8fd3f4"/>',
+garden:'<rect x="18" y="20" width="4" height="15" fill="#8a5a2b"/><circle cx="20" cy="15" r="12" fill="#2fa85a"/><circle cx="15" cy="11" r="5" fill="#57c978"/><circle cx="26" cy="18" r="3" fill="#ff8fa3"/>',
+library:'<path d="M3 15L20 3l17 12z" fill="#c9b58a"/><rect x="5" y="15" width="30" height="3" fill="#e9dcc0"/><rect x="7" y="18" width="4" height="15" fill="#f4ecd8"/><rect x="15" y="18" width="4" height="15" fill="#f4ecd8"/><rect x="23" y="18" width="4" height="15" fill="#f4ecd8"/><rect x="31" y="18" width="3" height="15" fill="#f4ecd8"/><rect x="3" y="33" width="34" height="3" fill="#c9b58a"/>',
+school:'<rect x="6" y="16" width="28" height="19" fill="#e07a5f"/><path d="M3 17L20 8l17 9z" fill="#3d405b"/><rect x="9" y="22" width="6" height="6" fill="#fff"/><rect x="25" y="22" width="6" height="6" fill="#fff"/><rect x="17" y="26" width="6" height="9" fill="#3d405b"/><path d="M20 8V1l7 2-7 2" fill="#ffbe2e"/>',
+lab:'<rect x="7" y="22" width="26" height="13" fill="#dfe8f2"/><path d="M7 22a13 13 0 0126 0z" fill="#7aa7d9"/><rect x="18" y="6" width="14" height="4" rx="2" transform="rotate(-35 20 14)" fill="#445"/><circle cx="20" cy="28" r="3" fill="#fff"/>',
+tower:'<path d="M13 35L16 13h8l3 22z" fill="#f4f1e8"/><rect x="15" y="8" width="10" height="6" fill="#ffd659"/><path d="M12 8l8-7 8 7z" fill="#d9534f"/><rect x="14" y="21" width="12" height="4" fill="#d9534f"/>',
+research:'<circle cx="20" cy="20" r="14" fill="#6a4fd6"/><circle cx="20" cy="20" r="9" fill="#8f7bf0"/><circle cx="20" cy="20" r="4" fill="#fff"/><ellipse cx="20" cy="20" rx="18" ry="5" fill="none" stroke="#14d4cc" stroke-width="2" transform="rotate(-25 20 20)"/>'};
+function BS(id){return '<ellipse cx="20" cy="36" rx="16" ry="4" fill="#0b4a70" opacity=".2"/>'+BSV[id]}
+function mapSvg(){
+  var h='<defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sea1)"/><stop offset="1" style="stop-color:var(--sea2)"/></linearGradient></defs><rect width="800" height="460" fill="url(#sg)"/>';
+  for(var w=0;w<7;w++)h+='<path class="wave" style="animation-delay:-'+w+'s" d="M-30 '+(40+w*62)+'q25-12 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0 50 0" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3"/>';
+  h+='<g transform="translate(300 400)"><g class="fl"><path d="M0 0h42l-9 11H9z" fill="#8a5a2b"/><path d="M21-34v32l17-5z" fill="#fff"/><path d="M19-30v28L5-7z" fill="#ffe08a"/></g></g><g stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"><path class="fl" d="M470 40q6-8 12 0q6-8 12 0"/><path class="fl" d="M500 62q5-7 10 0q5-7 10 0"/></g>';
+  for(var q=0;q<14;q++)h+='<circle cx="'+((q*127)%780+10)+'" cy="'+((q*71)%440+10)+'" r="2" fill="#fff" opacity=".6"/>';
+  ISL.forEach(function(o,i){
+    var u=unl(i);
+    h+='<g class="isl'+(i===sel?' sel':'')+(u?'':' lock')+'" data-i="'+i+'" tabindex="0" role="button" aria-label="'+o.n+'"><g class="fl" style="animation-delay:-'+i+'s">';
+    h+='<ellipse class="ring" cx="'+o.x+'" cy="'+(o.y+10)+'" rx="'+(o.rx+20)+'" ry="'+(o.ry+18)+'" fill="none" stroke="#ffbe2e" stroke-width="4"/>';
+    h+='<ellipse cx="'+o.x+'" cy="'+(o.y+44)+'" rx="'+(o.rx+6)+'" ry="'+(o.ry*.5)+'" fill="#0b4a70" opacity=".22"/>';
+    h+='<ellipse cx="'+o.x+'" cy="'+(o.y+26)+'" rx="'+o.rx+'" ry="'+o.ry+'" fill="#b88f55"/><ellipse cx="'+o.x+'" cy="'+(o.y+16)+'" rx="'+o.rx+'" ry="'+o.ry+'" fill="#d2ad72"/>';
+    h+='<ellipse class="land" cx="'+o.x+'" cy="'+(o.y+6)+'" rx="'+o.rx+'" ry="'+o.ry+'" fill="'+o.c+'"/><ellipse class="land" cx="'+o.x+'" cy="'+(o.y-2)+'" rx="'+(o.rx*.78)+'" ry="'+(o.ry*.7)+'" fill="'+o.g+'"/>';
+    if(u){var k=0;S.built.forEach(function(b){if(b.i!==i)return;var a=k*1.05+.3;k++;h+='<g transform="translate('+(o.x+Math.cos(a)*o.rx*.55-17)+' '+(o.y+Math.sin(a)*o.ry*.5-24)+') scale(.85)"><g class="bld">'+BS(b.t)+'</g></g>'});
+      if(!S.built.some(function(b){return b.i===i}))h+='<text x="'+(o.x-16)+'" y="'+(o.y+6)+'" font-size="32">'+o.em+'</text>';
+      h+='<text x="'+o.x+'" y="'+(o.y+o.ry+40)+'" text-anchor="middle" font-size="14" font-weight="800" fill="#0b2540" stroke="#fff" stroke-width="4" style="paint-order:stroke">'+o.n+'</text>';
+    }else h+='<ellipse cx="'+o.x+'" cy="'+(o.y+10)+'" rx="'+(o.rx+8)+'" ry="'+(o.ry+22)+'" fill="#dbe9f3" opacity=".88"/><text x="'+(o.x-16)+'" y="'+(o.y+8)+'" font-size="28">🔒</text><text x="'+o.x+'" y="'+(o.y+34)+'" text-anchor="middle" font-size="13" font-weight="800" fill="#0b2540">Уровень '+UNLOCK[i]+'</text>';
+    h+='</g></g>';
+  });
+  return h;
+}
+function render(){
+  if(!S)return;
+  $('hName').textContent=S.av+' '+S.name;
+  $('hArch').textContent=S.arch+' · цивилизация '+Math.min(100,Math.round(S.xp/(XPL*5)*100))+'%';
+  $('hLvl').textContent='⭐ Уровень '+lvl();$('hE').textContent='⚡ '+S.r.e;$('hK').textContent='🧠 '+S.r.k;$('hM').textContent='💎 '+S.r.m;
+  var n=0;ISL.forEach(function(_,i){if(unl(i))n++});$('hIs').textContent='🏝️ '+n+'/5';
+  $('bRes').style.display=S.fin?'':'none';$('xpBar').style.width=Math.min(100,(S.xp%XPL)/XPL*100)+'%';
+  $('bSnd').textContent=snd?'🔊':'🔇';
+  $('mapSvg').innerHTML=mapSvg();renderTab();
+}
+function renderTab(){
+  var h='';
+  document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===tab)});
+  if(tab==='build'){
+    var o=ISL[sel],cnt=S.built.filter(function(b){return b.i===sel}).length;
+    h='<p><b>'+o.n+'</b>'+(unl(sel)?' · построек: '+cnt+'/6. Выберите остров на карте.':' закрыт. Нужен уровень '+UNLOCK[sel]+'.')+'</p><div class="grid">';
+    BLD.forEach(function(b){var ok=unl(sel)&&cnt<6&&S.r.m>=b.m&&S.r.e>=b.e&&S.r.k>=b.k;
+      h+='<div class="card"><svg viewBox="0 0 40 40" width="52" height="52">'+BS(b.id)+'</svg><h3>'+b.n+'</h3><div class="cost">💎 '+b.m+(b.e?'  ⚡ '+b.e:'')+(b.k?'  🧠 '+b.k:'')+'</div><p style="font-size:12px;color:var(--mut);margin:0 0 10px">'+b.desc+'</p><button data-b="'+b.id+'"'+(ok?'':' disabled')+'>Построить</button></div>'});
+    h+='</div>';
+  }
+  if(tab==='miss'){
+    var srt=MIS.slice().sort(function(a,b){return (S.done[a.id]!==undefined?1:0)-(S.done[b.id]!==undefined?1:0)});
+    h='<div class="grid">';
+    srt.forEach(function(m){var u=unl(m.isl),d=S.done[m.id]!==undefined;
+      h+='<div class="card'+(d?' done':'')+(u?'':' lock')+'"><span class="tag">'+m.type+'</span><h3>'+m.title+'</h3><div class="cost">'+ISL[m.isl].n+' · +'+m.xp+' XP</div><button data-m="'+m.id+'"'+(u?'':' disabled')+'>'+(d?'Анализ':u?'Пройти миссию':'🔒 Закрыто')+'</button></div>'});
+    h+='</div>';
+  }
+  if(tab==='ach'){
+    h='<div class="grid">';
+    ACH.forEach(function(a){var g=S.ach.indexOf(a.id)>-1;h+='<div class="card'+(g?' done':' lock')+'"><div class="em">'+(g?a.em:'🔒')+'</div><h3>'+a.n+'</h3><div class="cost">'+a.d+'</div></div>'});
+    h+='</div>';
+  }
+  $('tab').innerHTML=h;
+}
+function build(id){
+  var b=BLD.filter(function(z){return z.id===id})[0];
+  if(!unl(sel))return;
+  if(S.r.m<b.m||S.r.e<b.e||S.r.k<b.k){toast('Недостаточно ресурсов',1);beep(180,.3,'square');return}
+  S.r.m-=b.m;S.r.e-=b.e;S.r.k-=b.k;S.built.push({t:id,i:sel});
+  beep(240,.1,'square');setTimeout(function(){beep(540,.2)},120);
+  toast(b.em+' '+b.n+' возведена!',1);award('arch');gain({e:0,k:0,m:0},10);
+}
+function openM(id){
+  var m=MIS.filter(function(z){return z.id===id})[0],d=S.done[id];
+  var h='<span class="tag">'+m.type+'</span><h2 style="margin:8px 0">'+m.title+'</h2><p>'+m.q+'</p>';
+  if(d!==undefined)h+='<div class="res">Ваш выбор: «'+m.o[d][0]+'»<br><br>'+m.o[d][6]+'</div>';
+  else m.o.forEach(function(o,i){h+='<button class="opt" data-o="'+i+'">'+o[0]+'</button>'});
+  h+='<button class="ghost" style="margin-top:10px" data-x="1">Закрыть</button>';
+  $('mBox').innerHTML=h;$('modal').classList.add('on');$('mBox').dataset.m=id;
+}
+function finishM(m,i){
+  var o=m.o[i];S.done[m.id]=i;award('first');beep(800,.2);
+  $('mBox').innerHTML='<h2>Миссия выполнена</h2><div class="res">'+o[6]+'<br><br>+'+o[3]+' ⚡  +'+o[4]+' 🧠  +'+o[5]+' 💎  +'+m.xp+' XP</div><button style="margin-top:12px" data-x="1">Продолжить</button>';
+  sparks();gain({e:o[3],k:o[4],m:o[5]},m.xp,o[1],o[2]);
+}
+function finale(q){
+  S.fin=true;save();
+  var r=ARC.map(function(a){return{a:a,v:S.traits[a.k]||0}}).sort(function(x,y){return y.v-x.v});
+  var mx=Math.max(r[0].v,1),b=S.built.length,md=Object.keys(S.done).length;
+  $('fN').textContent=S.av+' '+S.name;$('fA').textContent='Архипелаг: «'+S.arch+'»';
+  var h='<h3 style="margin-bottom:6px">Ведущий тип</h3>'+arcHtml(r[0].a,1)+'<h3 style="margin:14px 0 6px">Дополнительный тип</h3>'+arcHtml(r[1].a,0)+'<h3 style="margin:14px 0 6px">Ваш профиль</h3>';
+  r.forEach(function(x){h+='<div class="sc" style="--c:'+x.a.c+'"><span>'+x.a.n+'</span><i style="width:'+Math.round(x.v/mx*100)+'%;min-width:4px"></i>'+x.v+'</div>'});
+  h+='<p style="font-size:13px;color:var(--mut);margin-top:12px">Это повод для рефлексии, а не психологический диагноз. Подробнее — в разделе «Философия Игры».</p>';
+  $('psy').innerHTML=h;
+  $('fS').innerHTML='<div><b>'+md+'/7</b>Миссий</div><div><b>'+b+'</b>Сооружений</div><div><b>'+lvl()+'</b>Уровень</div><div><b>'+S.ach.length+'/5</b>Наград</div>';
+  $('fAch').textContent='Достижения: '+ACH.filter(function(a){return S.ach.indexOf(a.id)>-1}).map(function(a){return a.em+' '+a.n}).join('  ');
+  show('final');if(!q){chime();sparks()}$('bRes').style.display='';
+}
+function enter(){snd=S.snd!==false;show('world');render()}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('button,.isl');if(!t)return;
+  if(t.id==='bHow'||t.id==='bHowGame'){$('phiA').innerHTML=ARC.map(function(a){return arcHtml(a,1)}).join('');show('how')}
+  else if(t.id==='bHowBack'){if(S&&S.name){show('world');render()}else show('welcome')}
+  else if(t.id==='bRes')finale(1);
+  else if(t.dataset.t){tab=t.dataset.t;renderTab()}
+  else if(t.dataset.b)build(t.dataset.b);
+  else if(t.dataset.m)openM(t.dataset.m);
+  else if(t.dataset.x)$('modal').classList.remove('on');
+  else if(t.dataset.o!==undefined)finishM(MIS.filter(function(z){return z.id===$('mBox').dataset.m})[0],+t.dataset.o);
+  else if(t.classList.contains('isl')){sel=+t.dataset.i;if(!unl(sel))toast('Остров закрыт. Нужен уровень '+UNLOCK[sel],1);else beep(440,.1);render()}
+});
+$('mapSvg').addEventListener('keydown',function(e){if(e.key==='Enter'){var g=e.target.closest('.isl');if(g)g.dispatchEvent(new MouseEvent('click',{bubbles:true}))}});
+var mp=$('map');
+mp.addEventListener('mousemove',function(e){var r=mp.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;mp.style.setProperty('--rz',(x*12)+'deg');mp.style.setProperty('--rx',(24-y*10)+'deg')});
+mp.addEventListener('mouseleave',function(){mp.style.removeProperty('--rz');mp.style.removeProperty('--rx')});
+$('b3d').onclick=function(){mp.classList.toggle('flat')};
+$('bTh').onclick=function(){var d=document.documentElement,dk=d.dataset.theme!=='dark';d.dataset.theme=dk?'dark':'light';$('bTh').textContent=dk?'☀️':'🌙'};
+$('bStart').onclick=function(){if(load()&&!confirm('Найден прошлый мир. Начать заново?'))return;S=fresh();show('profile');beep(500,.15)};
+$('bCont').onclick=function(){S=load();enter()};
+$('bGo').onclick=function(){var n=$('nm').value.trim(),a=$('an').value.trim();if(!n||!a){toast('Введите имя и название архипелага',1);return}S.name=n;S.arch=a;save();toast('Мир «'+a+'» создан!',1);chime();enter()};
+$('bSnd').onclick=function(){snd=!snd;S.snd=snd;save();render();beep(600,.1)};
+$('bReset').onclick=function(){if(confirm('Удалить текущий мир и начать заново?')){try{localStorage.removeItem(KEY)}catch(e){}S=fresh();show('profile')}};
+$('bKeep').onclick=function(){enter()};
+$('bNew').onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}S=fresh();show('profile')};
+$('modal').onclick=function(e){if(e.target.id==='modal')$('modal').classList.remove('on')};
+$('avs').innerHTML=AVS.map(function(a,i){return'<button class="av'+(i?'':' sel')+'" data-a="'+a+'" aria-label="Символ '+a+'">'+a+'</button>'}).join('');
+$('avs').addEventListener('click',function(e){var b=e.target.closest('.av');if(!b||!S)return;S.av=b.dataset.a;document.querySelectorAll('.av').forEach(function(x){x.classList.toggle('sel',x===b)})});
+var old=load();if(old&&old.name){$('bCont').style.display='';$('bCont').textContent='ПРОДОЛЖИТЬ: '+old.arch}
+$('hg').innerHTML='<g transform="translate(58 98) scale(1.5)">'+BS('house')+'</g><g transform="translate(112 104) scale(1.3)">'+BS('library')+'</g><g transform="translate(292 78) scale(1.4)">'+BS('garden')+'</g><g transform="translate(414 124) scale(1.25)">'+BS('lab')+'</g>';
+show('welcome');
+})();
+</script></body></html>
