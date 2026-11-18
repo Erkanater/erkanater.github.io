@@ -66,7 +66,8 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
 .toc-head span{font-size:.9rem;color:var(--mist);letter-spacing:.05em}
 
 .item{display:grid;grid-template-columns:180px 1fr auto;gap:8px 44px;align-items:center;padding:34px 0;border-top:1px solid var(--line)}
-.thumb{width:180px;aspect-ratio:4/5;display:block;border-radius:999px 999px 6px 6px;background:var(--card);outline:1px solid var(--accent);outline-offset:6px;transition:transform .5s cubic-bezier(.2,.7,.2,1),outline-offset .5s}
+.thumb-link{display:block;width:180px;line-height:0;border-radius:999px 999px 6px 6px;cursor:pointer}
+.thumb{width:100%;aspect-ratio:4/5;display:block;border-radius:999px 999px 6px 6px;background:var(--card);outline:1px solid var(--accent);outline-offset:6px;transition:transform .5s cubic-bezier(.2,.7,.2,1),outline-offset .5s}
 .item:hover .thumb{transform:translateY(-6px);outline-offset:11px}
 .no{font-size:.9rem;color:var(--mist);letter-spacing:.05em;margin-bottom:6px}
 .item h3{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.1}
@@ -91,7 +92,8 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
 @media (max-width:760px){.letter{grid-template-columns:1fr}}
 @media (max-width:640px){
   .item{grid-template-columns:104px 1fr;gap:8px 22px;align-items:start}
-  .thumb{width:104px;grid-row:span 2;outline-offset:4px}
+  .thumb-link{width:104px;grid-row:span 2}
+  .thumb{outline-offset:4px}
   .side{grid-column:2;flex-direction:row;align-items:center;justify-content:space-between;text-align:left;width:100%}
 }
 </style>
@@ -128,7 +130,7 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
     </g>
     <g fill="#c8102e"><rect x="112" y="140" width="16" height="30"/><rect x="262" y="164" width="16" height="36"/><rect x="182" y="304" width="16" height="26"/></g>
   </symbol>
-  <!-- NIRM 2D: плоские слоистые холмы, солнце, путник и флажок -->
+  <!-- NIRM2D: плоские слоистые холмы, солнце, путник и флажок -->
   <symbol id="art-nirm2d" viewBox="0 0 400 500">
     <rect width="400" height="500" fill="url(#g2d)"/>
     <circle cx="285" cy="150" r="52" fill="#fff7e0"/>
@@ -180,7 +182,7 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
 
     <!-- ===== ПРОЕКТ 1 ===== -->
     <article class="item">
-      <svg class="thumb" role="img" aria-label="Пиксельный человечек"><use href="#art-trip"/></svg>
+      <a class="thumb-link" href="Trip.html" aria-label="Открыть проект Trip"><svg class="thumb" role="img" aria-label="Пиксельный человечек"><use href="#art-trip"/></svg></a>
       <div>
         <div class="no">Проект № 1</div>
         <h3><a href="Trip.html">Trip</a></h3>
@@ -192,7 +194,7 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
 
     <!-- ===== ПРОЕКТ 2 ===== -->
     <article class="item">
-      <svg class="thumb" role="img" aria-label="Острова архипелага"><use href="#art-archi"/></svg>
+      <a class="thumb-link" href="Archipelago.html" aria-label="Открыть проект Archipelago"><svg class="thumb" role="img" aria-label="Острова архипелага"><use href="#art-archi"/></svg></a>
       <div>
         <div class="no">Проект № 2</div>
         <h3><a href="Archipelago.html">Archipelago</a></h3>
@@ -204,31 +206,31 @@ h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(
 
     <!-- ===== ПРОЕКТ 3 ===== -->
     <article class="item">
-      <svg class="thumb" role="img" aria-label="Путник на холмах рядом с флажком"><use href="#art-nirm2d"/></svg>
+      <a class="thumb-link" href="NIRM2D.html" aria-label="Открыть проект NIRM2D"><svg class="thumb" role="img" aria-label="Путник на холмах рядом с флажком"><use href="#art-nirm2d"/></svg></a>
       <div>
         <div class="no">Проект № 3</div>
-        <h3><a href="NIRM2D.html">NIRM 2D</a></h3>
+        <h3><a href="NIRM2D.html">NIRM2D</a></h3>
         <div class="lead">Плоский мир, большие приключения</div>
         <p class="desc">Бегайте, прыгайте и исследуйте. Всё как на ладони.</p>
       </div>
-      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM%202D.html">Открыть</a></div>
+      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM2D.html">Открыть</a></div>
     </article>
 
     <!-- ===== ПРОЕКТ 4 ===== -->
     <article class="item">
-      <svg class="thumb" role="img" aria-label="Стопка объёмных блоков"><use href="#art-nirm3d"/></svg>
+      <a class="thumb-link" href="NIRM3D.html" aria-label="Открыть проект NIRM3D"><svg class="thumb" role="img" aria-label="Стопка объёмных блоков"><use href="#art-nirm3d"/></svg></a>
       <div>
         <div class="no">Проект № 4</div>
-        <h3><a href="NIRM3D.html">NIRM 3D</a></h3>
+        <h3><a href="NIRM3D.html">NIRM3D</a></h3>
         <div class="lead">Тот же мир, но теперь с объёмом</div>
         <p class="desc">Можно заглянуть за угол и посмотреть на блоки со всех сторон.</p>
       </div>
-      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM%203D.html">Открыть</a></div>
+      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM3D.html">Открыть</a></div>
     </article>
 
     <!-- Новый проект: скопируйте <article class="item"> целиком, смените название, описание, дату и href.
          Для картинки добавьте новый <symbol id="art-..."> в блок иллюстраций вверху страницы.
-         Пробелы в имени файла пишите как %20 (например, NIRM%202D.html). -->
+         Имя файла в href должно совпадать с настоящим файлом (например, NIRM2D.html). Ссылку нужно поставить и на картинку, и на название, и на кнопку. -->
   </main>
 
   <footer class="credits">
