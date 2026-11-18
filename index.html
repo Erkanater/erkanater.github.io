@@ -1,64 +1,97 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Erkanat — каталог проектов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#fff; --ink:#000; --mute:#555; --red:#c8102e;
-  --display:"Playfair Display","Didot","Bodoni 72",Georgia,serif;
-  --text:"Jost","Helvetica Neue",Arial,sans-serif;
+  /* Светлая тема (по умолчанию) */
+  --bg:#f5f8fc; --bg2:#e8eff8; --ink:#0f1b2d; --mist:#556580; --accent:#2a559e; --line:rgba(15,27,45,.16); --card:#e4ecf7;
+  --glow:radial-gradient(ellipse 80% 55% at 82% 0,#ffe8b5 0,transparent 70%);
+  --display:"Forum","Palatino Linotype",Georgia,serif;
+  --text:"Raleway","Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
 }
+:root[data-theme="dark"]{
+  --bg:#0b1220; --bg2:#0a101c; --ink:#eef2f7; --mist:#9aa8bd; --accent:#b9d0f0; --line:rgba(185,208,240,.2); --card:#121c31;
+  --glow:radial-gradient(ellipse 80% 50% at 80% 0,#1d2d52 0,transparent 70%);
+  color-scheme:dark;
+}
 *{box-sizing:border-box;margin:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--text);font-weight:300;font-size:1.0625rem;line-height:1.55}
+html{background:var(--bg)}
+body{
+  background:var(--glow),linear-gradient(var(--bg),var(--bg2));
+  color:var(--ink);font-family:var(--text);font-weight:300;font-size:1.0625rem;line-height:1.7;min-height:100vh;
+  font-variant-numeric:lining-nums;transition:color .6s
+}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--red);outline-offset:3px}
-.wrap{max-width:1000px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
 
 /* Шапка */
-.strip{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--ink);font-size:.9rem;font-weight:400}
-.masthead{font-family:var(--display);font-weight:900;text-align:center;line-height:.9;letter-spacing:-.02em;font-size:clamp(3.5rem,17vw,11rem);padding:.15em 0 .05em;border-bottom:4px solid var(--ink)}
-.tagline{padding:12px 0 0;font-family:var(--display);font-style:italic;font-size:1.15rem;text-align:center}
+.strip{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:26px 0;font-size:.9rem;color:var(--mist);letter-spacing:.05em}
+.strip-r{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.mode{font:inherit;letter-spacing:.04em;color:var(--ink);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 18px 6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:border-color .3s,background .3s}
+.mode:hover{border-color:var(--accent);background:var(--card)}
+.mode svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.mode .i-sun{display:none}
+:root[data-theme="dark"] .mode .i-sun{display:block}
+:root[data-theme="dark"] .mode .i-moon{display:none}
 
-/* Письмо редактора */
-.letter{max-width:34rem;margin:40px auto 0;text-align:center}
-.letter h2{font-size:.85rem;font-weight:500;color:var(--red);margin-bottom:10px}
-.letter p{font-family:var(--display);font-style:italic;font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.35}
-.letter .sign{display:block;margin-top:12px;font-family:var(--text);font-style:normal;font-weight:500;font-size:.95rem}
+.hero{position:relative;padding:clamp(40px,9vw,110px) 0 clamp(50px,8vw,90px)}
+.orb{position:absolute;right:2%;top:2%;width:clamp(150px,30vw,300px);aspect-ratio:1;border-radius:50%;pointer-events:none;transition:opacity .9s,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.sun{background:radial-gradient(circle at 40% 38%,#fff6d6 0,#ffd98a 45%,#ffb347 100%);box-shadow:0 0 120px 30px rgba(255,190,90,.45)}
+.sun::before{content:"";position:absolute;inset:-38%;border-radius:50%;background:repeating-conic-gradient(rgba(255,185,80,.4) 0 3deg,transparent 3deg 12deg);-webkit-mask:radial-gradient(circle,transparent 30%,#000 34%,transparent 68%);mask:radial-gradient(circle,transparent 30%,#000 34%,transparent 68%)}
+.moon{background:radial-gradient(circle at 34% 32%,#fff 0,#dbe6f6 38%,#8fa9d4 100%);box-shadow:0 0 140px 20px rgba(185,208,240,.28);opacity:0;transform:translateY(50px) scale(.92)}
+.moon::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 70% 68%,rgba(11,18,32,.34) 0,transparent 60%)}
+:root[data-theme="dark"] .sun{opacity:0;transform:translateY(50px) scale(.92)}
+:root[data-theme="dark"] .moon{opacity:.92;transform:none}
 
-/* Содержание */
-.toc-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:44px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
-.toc-head h2{font-family:var(--display);font-weight:900;font-size:2rem}
-.toc-head span{font-size:.9rem;font-weight:500;color:var(--red)}
+h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(3.8rem,16vw,10.5rem);line-height:.95;letter-spacing:.01em;animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both}
+.tagline{position:relative;margin-top:clamp(20px,3vw,34px);font-family:var(--display);font-size:clamp(1.3rem,2.5vw,1.8rem);line-height:1.4;color:var(--accent);max-width:24em;animation:rise 1.4s .25s cubic-bezier(.2,.7,.2,1) both}
 
-.item{display:grid;grid-template-columns:130px 1fr auto;gap:8px 28px;align-items:center;padding:22px 0;border-bottom:1px solid var(--ink)}
-.thumb{width:130px;aspect-ratio:4/5;display:block}
-.no{font-size:.85rem;font-weight:500;color:var(--red);margin-bottom:2px}
-.item h3{font-family:var(--display);font-weight:900;font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.05}
-.item h3 a{text-decoration:none;background:linear-gradient(var(--red),var(--red)) 0 100%/0 3px no-repeat;transition:background-size .25s}
-.item h3 a:hover{background-size:100% 3px}
-.lead{font-family:var(--display);font-style:italic;font-size:1.15rem;margin:4px 0 6px}
-.desc{color:var(--mute);max-width:44ch}
-.side{display:flex;flex-direction:column;align-items:flex-end;gap:12px;text-align:right}
-.date{font-size:.9rem;font-weight:500}
-.open{text-decoration:none;font-weight:500;padding:10px 22px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);transition:background .2s,color .2s;white-space:nowrap}
-.open:hover{background:var(--paper);color:var(--ink)}
+/* Письмо */
+.letter{display:grid;grid-template-columns:200px 1fr;gap:12px 48px;padding:clamp(36px,6vw,64px) 0;border-top:1px solid var(--line)}
+.letter h2{font-family:var(--display);font-weight:400;font-size:1.6rem;color:var(--accent)}
+.letter p{font-family:var(--display);font-size:clamp(1.4rem,2.8vw,2rem);line-height:1.4;max-width:28em}
+.letter .sign{display:block;margin-top:16px;font-size:.95rem;color:var(--mist);letter-spacing:.05em}
+
+/* Проекты */
+.toc-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:clamp(28px,5vw,48px) 0 22px;border-top:1px solid var(--line)}
+.toc-head h2{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7rem)}
+.toc-head span{font-size:.9rem;color:var(--mist);letter-spacing:.05em}
+
+.item{display:grid;grid-template-columns:180px 1fr auto;gap:8px 44px;align-items:center;padding:34px 0;border-top:1px solid var(--line)}
+.thumb{width:180px;aspect-ratio:4/5;display:block;border-radius:999px 999px 6px 6px;background:var(--card);outline:1px solid var(--accent);outline-offset:6px;transition:transform .5s cubic-bezier(.2,.7,.2,1),outline-offset .5s}
+.item:hover .thumb{transform:translateY(-6px);outline-offset:11px}
+.no{font-size:.9rem;color:var(--mist);letter-spacing:.05em;margin-bottom:6px}
+.item h3{font-family:var(--display);font-weight:400;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.1}
+.item h3 a{text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;transition:background-size .5s cubic-bezier(.2,.7,.2,1)}
+.item h3 a:hover{background-size:100% 1px}
+.lead{font-family:var(--display);font-size:1.3rem;color:var(--accent);margin:8px 0 6px}
+.desc{color:var(--mist);max-width:42ch}
+.side{display:flex;flex-direction:column;align-items:flex-end;gap:16px;text-align:right}
+.date{font-size:.9rem;color:var(--mist);letter-spacing:.05em}
+.open{text-decoration:none;font-weight:400;padding:10px 28px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);white-space:nowrap;letter-spacing:.05em;transition:background .3s,color .3s}
+.open:hover{background:var(--accent);color:var(--bg)}
 
 /* Титры */
-.credits{margin-top:44px;border-top:4px solid var(--ink);padding:30px 0 56px}
-.credits h2{font-family:var(--display);font-weight:900;font-size:1.6rem;margin-bottom:18px}
-.credits dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px 28px}
-.credits dt{font-size:.85rem;font-weight:500;color:var(--red);margin-bottom:2px}
-.credits dd{font-family:var(--display);font-size:1.1rem;line-height:1.35}
+.credits{margin-top:20px;padding:clamp(40px,6vw,64px) 0 72px;border-top:1px solid var(--line)}
+.credits h2{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:30px}
+.credits dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px 36px}
+.credits dt{font-size:.85rem;color:var(--mist);letter-spacing:.05em;margin-bottom:4px}
+.credits dd{font-family:var(--display);font-size:1.3rem;line-height:1.35}
 
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){h1,.tagline{animation:none}.thumb,.item h3 a,.open,.orb,body{transition:none}}
+@media (max-width:760px){.letter{grid-template-columns:1fr}}
 @media (max-width:640px){
-  .item{grid-template-columns:96px 1fr;gap:8px 18px;align-items:start}
-  .thumb{width:96px;grid-row:span 2}
+  .item{grid-template-columns:104px 1fr;gap:8px 22px;align-items:start}
+  .thumb{width:104px;grid-row:span 2;outline-offset:4px}
   .side{grid-column:2;flex-direction:row;align-items:center;justify-content:space-between;text-align:left;width:100%}
 }
 </style>
@@ -67,6 +100,10 @@ a{color:inherit}
 
 <!-- Иллюстрации (используются в списке ниже через <use>) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="cube"><polygon points="200,140 260,170 200,200 140,170" fill="#dbe8fb"/><polygon points="140,170 200,200 200,265 140,235" fill="#6f8fc4"/><polygon points="200,200 260,170 260,235 200,265" fill="#3f5a8f"/></g>
+    <linearGradient id="g2d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7b8"/><stop offset="1" stop-color="#b9d0f0"/></linearGradient>
+  </defs>
   <symbol id="art-trip" viewBox="0 0 400 500">
     <rect width="400" height="500" fill="#bcd7e8"/>
     <circle cx="310" cy="105" r="42" fill="#fff"/>
@@ -91,21 +128,52 @@ a{color:inherit}
     </g>
     <g fill="#c8102e"><rect x="112" y="140" width="16" height="30"/><rect x="262" y="164" width="16" height="36"/><rect x="182" y="304" width="16" height="26"/></g>
   </symbol>
+  <!-- NIRM 2D: плоские слоистые холмы, солнце, путник и флажок -->
+  <symbol id="art-nirm2d" viewBox="0 0 400 500">
+    <rect width="400" height="500" fill="url(#g2d)"/>
+    <circle cx="285" cy="150" r="52" fill="#fff7e0"/>
+    <path d="M0 330 Q100 250 200 310 T400 290 V500 H0Z" fill="#8aa6d6"/>
+    <path d="M0 390 Q120 320 230 380 T400 360 V500 H0Z" fill="#4f6faa"/>
+    <path d="M0 450 Q150 400 270 440 T400 430 V500 H0Z" fill="#1c2a47"/>
+    <circle cx="110" cy="383" r="12" fill="#0b1220"/><rect x="98" y="395" width="24" height="32" rx="9" fill="#0b1220"/>
+    <rect x="300" y="378" width="3" height="60" fill="#0b1220"/><polygon points="303,378 337,391 303,404" fill="#f0d9a8"/>
+  </symbol>
+  <symbol id="art-nirm3d" viewBox="0 0 400 500">
+    <rect width="400" height="500" fill="#121c31"/>
+    <g fill="#fff"><rect x="50" y="70" width="4" height="4"/><rect x="330" y="110" width="4" height="4"/><rect x="90" y="190" width="4" height="4"/><rect x="310" y="60" width="4" height="4"/></g>
+    <use href="#cube" y="110"/><use href="#cube" x="-60" y="145"/><use href="#cube" x="60" y="145"/><use href="#cube" y="25"/>
+  </symbol>
 </svg>
 
 <div class="wrap">
 
   <header>
-    <div class="strip"><span>Каталог проектов</span><span>Ноябрь 2026</span></div>
-    <h1 class="masthead">Erkanat</h1>
-    <p class="tagline">Пока немного. Но мы очень надеемся на большее.</p>
+    <div class="strip">
+      <span>Каталог проектов</span>
+      <div class="strip-r">
+        <span>Ноябрь 2026</span>
+        <button class="mode" id="mode" type="button" aria-pressed="false">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+          <span id="mode-label">Тёмная тема</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="orb sun" aria-hidden="true"></div>
+      <div class="orb moon" aria-hidden="true"></div>
+      <h1>Erkanat</h1>
+      <p class="tagline">Пока немного. Но мы очень надеемся на большее.</p>
+    </div>
   </header>
 
   <main>
     <section class="letter">
       <h2>Привет!</h2>
-      <p>Здесь живут проекты. Пока они маленькие, но очень старательные. Завтра их будет больше. Мы на это надеемся, и это уже радует.</p>
-      <span class="sign">Erkanat</span>
+      <div>
+        <p>Здесь живут проекты. Пока они маленькие, но очень старательные. Завтра их будет больше. Мы на это надеемся, и это уже радует.</p>
+        <span class="sign">Erkanat</span>
+      </div>
     </section>
 
     <div class="toc-head"><h2>Что у нас тут</h2><span id="count"></span></div>
@@ -134,8 +202,33 @@ a{color:inherit}
       <div class="side"><span class="date">11.11.2026</span><a class="open" href="Archipelago.html">Открыть</a></div>
     </article>
 
+    <!-- ===== ПРОЕКТ 3 ===== -->
+    <article class="item">
+      <svg class="thumb" role="img" aria-label="Путник на холмах рядом с флажком"><use href="#art-nirm2d"/></svg>
+      <div>
+        <div class="no">Проект № 3</div>
+        <h3><a href="NIRM%202D.html">NIRM 2D</a></h3>
+        <div class="lead">Плоский мир, большие приключения</div>
+        <p class="desc">Бегайте, прыгайте и исследуйте. Всё как на ладони.</p>
+      </div>
+      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM%202D.html">Открыть</a></div>
+    </article>
+
+    <!-- ===== ПРОЕКТ 4 ===== -->
+    <article class="item">
+      <svg class="thumb" role="img" aria-label="Стопка объёмных блоков"><use href="#art-nirm3d"/></svg>
+      <div>
+        <div class="no">Проект № 4</div>
+        <h3><a href="NIRM%203D.html">NIRM 3D</a></h3>
+        <div class="lead">Тот же мир, но теперь с объёмом</div>
+        <p class="desc">Можно заглянуть за угол и посмотреть на блоки со всех сторон.</p>
+      </div>
+      <div class="side"><span class="date">18.11.2026</span><a class="open" href="NIRM%203D.html">Открыть</a></div>
+    </article>
+
     <!-- Новый проект: скопируйте <article class="item"> целиком, смените название, описание, дату и href.
-         Для картинки добавьте новый <symbol id="art-..."> в блок иллюстраций вверху страницы. -->
+         Для картинки добавьте новый <symbol id="art-..."> в блок иллюстраций вверху страницы.
+         Пробелы в имени файла пишите как %20 (например, NIRM%202D.html). -->
   </main>
 
   <footer class="credits">
@@ -150,6 +243,18 @@ a{color:inherit}
   </footer>
 
 </div>
-<script>document.getElementById("count").textContent="Проектов: "+document.querySelectorAll(".item").length;</script>
+<script>
+document.getElementById("count").textContent="Проектов: "+document.querySelectorAll(".item").length;
+// Страница всегда открывается в светлой теме; кнопка переключает день и ночь.
+(function(){
+  var root=document.documentElement,btn=document.getElementById("mode"),label=document.getElementById("mode-label");
+  btn.addEventListener("click",function(){
+    var dark=root.getAttribute("data-theme")!=="dark";
+    root.setAttribute("data-theme",dark?"dark":"light");
+    btn.setAttribute("aria-pressed",dark?"true":"false");
+    label.textContent=dark?"Светлая тема":"Тёмная тема";
+  });
+})();
+</script>
 </body>
 </html>
