@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>Город Знаний</title><style>
+:root{--ink:#1b2a49;--mu:#5d6b88;--ln:#e3e8f0;--tq:#0e9f8e;--am:#f2a900;--co:#ef5b5b;--ok:#1fa971;--hh:56px;--ph:150px;color-scheme:light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none;background:#dff3ff;color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;user-select:none;-webkit-user-select:none}
+#cv{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#ui{position:fixed;inset:0;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.pe{pointer-events:auto}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:3px solid var(--am);outline-offset:2px}
+.gl{background:#ffffffee;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #fff;box-shadow:0 8px 28px #1b2a4926;border-radius:16px}
+#hud{position:absolute;top:8px;left:8px;right:8px;display:flex;align-items:center;gap:6px 8px;padding:6px 10px;flex-wrap:wrap}
+.br{font:700 17px Georgia,serif;margin-right:auto;color:var(--tq);white-space:nowrap}
+.ib{border:1px solid var(--ln);background:#fff;border-radius:12px;padding:3px 9px;font-size:14px;white-space:nowrap;line-height:1.5}
+button.ib{min-width:38px;min-height:34px}
+.tb{display:inline-block;vertical-align:middle;width:64px;height:9px;background:#e3e8f0;border-radius:5px;overflow:hidden}.tb u{display:block;height:100%;width:50%;background:var(--co);transition:width .6s,background .6s}
+#cc{position:absolute;top:calc(var(--hh) + 14px);left:8px;width:min(390px,calc(100% - 16px));padding:12px 14px;max-height:calc(100dvh - var(--hh) - var(--ph) - 60px);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;display:none}
+#cc .who{font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+#cc .tg{border:0;background:#eef2f8;border-radius:10px;width:34px;height:30px;font-size:16px}
+#cc p{margin:6px 0;font:16px/1.45 Georgia,serif}#cc .hn{font-size:13px;color:var(--mu)}
+#cc.mini p,#cc.mini .hn,#cc.mini .sets,#cc.mini .tm,#cc.mini .bt,#cc.mini .hint{display:none}
+#cc .tm{height:5px;background:#e3e8f0;border-radius:3px;overflow:hidden;margin-top:6px}#cc .tm i{display:block;height:100%;width:100%;background:var(--am)}
+.hint{margin-top:6px;padding:6px 10px;background:#fff8e1;border-radius:10px;font-size:14px;color:#6b4a00}
+.ok{border-left:6px solid var(--ok)}.bad{border-left:6px solid var(--co)}.ch{border-left:6px solid var(--am)}
+.sets{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.sets span{font-size:12px;padding:2px 8px;border-radius:10px;background:#eef2f8;color:#8793ad}.sets span.on{background:#fff4d6;color:#8a5a00;font-weight:700}
+.btn{background:var(--tq);color:#fff;border:0;border-radius:24px;padding:10px 20px;min-height:44px;font-weight:800;margin:8px 6px 0 0}.btn.g{background:#fff;color:var(--ink);border:1px solid var(--ln)}.btn.s{min-height:36px;padding:6px 14px;font-size:14px}
+#pal{position:absolute;left:8px;right:8px;bottom:8px;padding:6px}
+#cap{font-size:13px;color:var(--mu);min-height:18px;padding:0 4px 4px;line-height:1.3}
+#bl{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.bc{background:#fff;border:2px solid var(--ln);border-top:4px solid var(--c);border-radius:12px;padding:3px 2px;text-align:center;line-height:1.15;font-size:11px;font-weight:600;min-height:52px;overflow:hidden}
+.bc span{display:block;font-size:21px}.bc small{display:block;color:var(--mu);font-weight:400;font-size:10px}
+.bc.sel{border-color:var(--c);background:#f3fbf9;transform:translateY(-3px);box-shadow:0 6px 14px #1b2a4926}
+.bc.pulse{animation:pu 1s ease-in-out infinite}@keyframes pu{50%{box-shadow:0 0 0 5px #f2a90099;transform:scale(1.06)}}
+#cf{position:absolute;right:10px;bottom:calc(var(--ph) + 16px);display:none;padding:12px 20px;font-size:16px;box-shadow:0 8px 24px #0e9f8e66;margin:0}
+#inf{position:absolute;right:8px;top:calc(var(--hh) + 14px);width:min(270px,calc(100% - 16px));padding:12px;display:none}#inf b{font-size:16px}
+#coach{position:absolute;left:8px;right:8px;bottom:calc(var(--ph) + 16px);margin:0 auto;max-width:520px;padding:12px 14px;display:none;border-left:6px solid var(--tq)}
+#coach .st{font-size:12px;color:var(--mu);font-weight:700;letter-spacing:.04em}#coach p{margin:4px 0 6px;font-size:16px}
+.ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:10px;background:#ffffff77}.ov.on{display:flex}
+.pn{width:min(640px,100%);max-height:calc(100dvh - 24px);display:flex;flex-direction:column;padding:18px;overflow:hidden}
+.pn .bodyx{overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;min-height:0;flex:1}
+.pn .ft{display:flex;flex-wrap:wrap;gap:0;margin-top:4px}
+h1,h2{font-family:Georgia,serif;margin:.1em 0}h1{font-size:clamp(28px,6vw,44px)}h2{font-size:clamp(20px,4.5vw,26px)}.mu{color:var(--mu)}
+.tabs{display:flex;gap:6px;margin:8px 0}.tabs button{flex:1;border:1px solid var(--ln);background:#fff;border-radius:12px;padding:8px;font-weight:700;min-height:40px}.tabs button.on{background:var(--tq);color:#fff;border-color:var(--tq)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:5px;margin:6px 0}.chips button{border:2px solid var(--ln);background:#fff;border-radius:10px;font-size:20px;min-height:42px}.chips button.on{border-color:var(--tq);background:#f3fbf9}
+.card{background:#f5f8fc;border-radius:14px;padding:12px 14px}.card h3{margin:0 0 4px;font-size:18px}.card p{margin:6px 0;font-size:15px}.card .k{font-size:12px;font-weight:800;color:var(--tq);text-transform:uppercase;letter-spacing:.04em}
+.ref{font-size:13px;color:var(--mu)}
+.dice{font:800 84px Georgia,serif;width:140px;height:140px;border-radius:30px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px #1b2a493a;animation:rl .5s linear infinite}@keyframes rl{to{transform:rotate(360deg)}}.dice.st{animation:none}
+.fl{position:absolute;font:800 19px system-ui;pointer-events:none;text-shadow:0 2px 0 #fff;animation:fu 1.8s ease-out forwards;transform:translate(-50%,0);white-space:nowrap}@keyframes fu{to{transform:translate(-50%,-70px);opacity:0}}
+.bd{display:inline-block;margin:3px;padding:5px 11px;border-radius:14px;background:#eef2f8;color:#8793ad;font-size:14px}.bd.on{background:#fff4d6;color:#8a5a00;font-weight:700}
+.rep{background:#f5f8fc;border-radius:12px;padding:10px;font-size:14px}
+@media(min-width:900px){#bl{grid-template-columns:repeat(10,1fr)}.bc{font-size:12px}.bc span{font-size:24px}#pal{left:50%;right:auto;width:min(980px,calc(100% - 16px));transform:translateX(-50%)}}
+@media(max-width:560px){.br{font-size:15px}.tb{width:46px}#hud{padding:5px 8px}.ib{padding:2px 7px;font-size:13px}#cc p{font-size:15px}#inf{top:auto;bottom:calc(var(--ph) + 16px);right:8px}#cf{left:10px;right:10px;text-align:center}.pn{padding:14px}}
+@media(max-height:520px) and (orientation:landscape){#cc{width:min(330px,42%);max-height:calc(100dvh - var(--hh) - 30px)}#pal{left:auto;right:8px;width:min(52%,520px);transform:none}#coach{left:8px;right:auto;bottom:8px;max-width:min(330px,44%)}#cf{bottom:calc(var(--ph) + 14px)}#bl{grid-template-columns:repeat(5,1fr)}.bc{min-height:44px}.bc small{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:0s!important}}
+</style></head><body><canvas id="cv"></canvas>
+<div id="ui"><div id="hud" class="gl pe"><span class="br">Город Знаний</span><span class="ib" id="hm"></span><span class="ib">🤝 <i class="tb"><u id="tb"></u></i> <b id="tv"></b></span><span class="ib" id="hp"></span><span class="ib" id="hn"></span><button class="ib" id="bg" title="Научная база" aria-label="Научная база">📚</button><button class="ib" id="hl" title="Как играть" aria-label="Как играть">❓</button><button class="ib" id="sd" title="Звук" aria-label="Звук">🔊</button></div>
+<div id="cc" class="gl ch pe"></div><div id="inf" class="gl pe"></div><div id="coach" class="gl pe"></div><button id="cf" class="btn pe"></button>
+<div id="pal" class="gl pe"><div id="cap"></div><div id="bl"></div></div><div class="ov" id="ov"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+// [название, значок, цвет, цена, определение, короткое имя, подсказка, пример применения, научная опора]
+const BD={
+guide:["Путеводная башня","🧭","#2fb8a8",90,"Справочник-путеводитель: общая навигация по вузу, службам и правилам для всех, кто только знакомится с университетом.","Башня","Речь о вузе в целом, а не об одной дисциплине.","Первокурснику: где деканат, как записаться на дисциплины, к кому обратиться.","Снижает когнитивную нагрузку новичка: единая точка входа вместо разрозненных объявлений (Sweller, теория когнитивной нагрузки)."],
+syl:["Дом Силлабуса","📜","#f2a900",100,"Силлабус: договор преподавателя со студентами по одной дисциплине: темы, задания, баллы, сроки и правила.","Силлабус","Документ об одной дисциплине: баллы, сроки, правила.","Студент заранее видит, как набираются баллы, когда рубежный контроль и как отрабатываются пропуски.","Прозрачные критерии повышают предсказуемость и мотивацию; согласованность целей, заданий и оценивания описывает конструктивное выравнивание (Biggs, 1996)."],
+umk:["Библиотека УМК","🗃️","#5b5bd6",120,"УМК (учебно-методический комплекс): комплект материалов дисциплины: методические указания, задания, оценочные средства.","УМК","Нужен целый комплект материалов по дисциплине.","Преподаватель собирает в одном месте лекции, методички, задания и тесты, чтобы курс был воспроизводим.","Целостный комплект поддерживает согласованность целей, методов и оценивания (Biggs, 1996)."],
+rup:["Деканат РУП","🏛️","#b8b3a4",110,"РУП (рабочий учебный план) и рабочая программа: рамка с кредитами, семестром, формами контроля и распределением часов.","РУП","Рамка программы: кредиты, семестр, форма контроля.","Деканат фиксирует, что дисциплина идёт в 3 семестре, весит 3 кредита и завершается экзаменом.","Планирование «от результатов к содержанию» (backward design, Wiggins и McTighe) начинается с рамки и итоговых компетенций."],
+credits:["Банк кредитов","⏰","#e6a817",100,"Кредитная технология: учёт учебной нагрузки в академических кредитах. По действующим правилам РК один кредит равен 30 академическим часам, куда входят аудиторная и самостоятельная работа.","Кредиты","Речь об учёте часов и нагрузки студента.","3 кредита = 90 академических часов: часть в аудитории, остальное самостоятельная работа студента.","Кредит измеряет трудозатраты студента, а не только часы в аудитории; близкая идея лежит в основе ECTS."],
+lec:["Амфитеатр","🌬️","#4aa3ff",100,"Лекция: формирование понимания концепций и системного взгляда на тему.","Лекция","Нужна общая карта темы и связи понятий.","Преподаватель показывает общую структуру темы, ключевые понятия и их связи.","Вводная структура помогает встроить новые знания в уже имеющиеся схемы; эффективность усиливают вопросы и паузы для активной работы (Freeman и др., 2014)."],
+prac:["Практикум","⚙️","#ff9f5a",100,"Практика: отработка навыков и алгоритмов на серии заданий до уверенного применения.","Практика","Отработка навыка и алгоритма на заданиях.","Серия задач с нарастающей сложностью и взаимопроверкой по критериям.","Регулярное воспроизведение материала и разнесённое во времени повторение закрепляют навык лучше однократного перечитывания (Roediger и Karpicke, 2006; Cepeda и др., 2006)."],
+sem:["Зал дискуссий","🗣️","#ff7a8a",100,"Семинар: дискуссия, аргументация, доклады и оппонирование.","Семинар","Обсуждение, аргументы, доклады, оппоненты.","Две команды защищают разные позиции, опираясь на факты и источники.","Социальное взаимодействие развивает мышление (Выготский); активное обсуждение улучшает результаты обучения (Freeman и др., 2014)."],
+lab:["Лаборатория","🧪","#3cc9a0",110,"Лаборатория: эксперимент, гипотезы, замеры и протокол исследования.","Лаборатория","Эксперимент, замеры, протокол.","Студенты формулируют гипотезу, проводят опыт, фиксируют замеры и оформляют протокол.","Цикл «опыт, наблюдение, обобщение, проверка» описан в теории experiential learning (Kolb, 1984)."],
+arm:["Павильон АРМ","🧩","#9b7be0",90,"АРМ (активный раздаточный материал): опорные схемы, вопросы и задания, связанные с УМК, и мини-итог занятия.","АРМ","Схемы с пропусками, вопросы по ходу занятия, мини-итог.","Схема с пропусками на лекции, вопросы по ходу пары и краткий итог в конце.","Активное заполнение материала и самопроверка работают лучше пассивного чтения (Freeman и др., 2014; Roediger и Karpicke, 2006)."]};
+const ORD=Object.keys(BD),SETS=[["Инфопакет",["guide","syl","umk"]],["Четыре формата",["lec","prac","sem","lab"]],["Рамка и актив",["rup","credits","arm"]]];
+// кейсы: [персонаж, текст, ответ]
+const K=[
+["👩‍🎓 Алиса, студентка 1 курса","Здравствуйте! Я первокурсница и немного заблудилась. Подскажите, пожалуйста, где столовая, деканат и как устроены правила университета?","guide"],
+["👵 Гульнара Омаровна, мама студента","Добрый день! Мне нужна общая карта вуза: службы, контакты и общежитие. Где можно всё это найти?","guide"],
+["🧑‍🎓 Руслан, студент-переводчик","Здравствуйте! Я перевёлся из другого вуза. С чего начать знакомство с университетом и его службами?","guide"],
+["🧑‍💼 Тимур, студент","Добрый день! Подскажите, пожалуйста, где записаны баллы, дедлайны и правила пропусков именно по этому курсу?","syl"],
+["🧑‍💼 Тимур, студент","Здравствуйте! Как в этом курсе оцениваются рубежные контроли и что с пересдачами? Где об этом прочитать?","syl"],
+["👩‍🎓 Айгерим, студентка","Добрый день! Хочу заранее понять темы курса, сроки заданий и критерии оценивания. Где это закреплено?","syl"],
+["👩‍🏫 Дана Ермековна, преподаватель","Здравствуйте! Преподавателям нужен единый комплект: методички, задания и тесты по дисциплине. Что построим?","umk"],
+["👨‍🏫 Ержан Маратович, преподаватель","Добрый день! Я хотел бы открыть студентам методички и оценочные средства курса в общем доступе. Как это лучше оформить?","umk"],
+["👩‍🏫 Меруерт Асановна, куратор","Здравствуйте! Новому преподавателю нужен готовый набор материалов по дисциплине. Что ему передать?","umk"],
+["🏛️ Деканат","Добрый день! Просим закрепить трудоёмкость дисциплины, семестр и форму итогового контроля.","rup"],
+["🏛️ Деканат","Здравствуйте! В программе 15 недель, а у преподавателя 18 тем. Нужна согласованная рамка. Поможете?","rup"],
+["🏛️ Учебный отдел","Добрый день! Необходимо определить, в каком семестре идёт дисциплина и каким экзаменом завершается.","rup"],
+["🧑‍🌾 Нурлан, студент","Здравствуйте! Объясните, пожалуйста: три кредита — это сколько часов? Хочу видеть, как делятся аудитория и самостоятельная работа.","credits"],
+["👩‍🎓 Асель, студентка","Добрый день! Мне нужно спланировать нагрузку на семестр. Как считать учебное время в кредитах?","credits"],
+["👨‍🏫 Серик Болатович, преподаватель","Здравствуйте! Подскажите, как учесть вместе аудиторную и самостоятельную работу студентов?","credits"],
+["👨‍🏫 Ержан Маратович, преподаватель","Добрый день! Студентам нужна общая карта темы и связи между понятиями. Где им это лучше показать?","lec"],
+["👩‍🎓 Алия, студентка","Здравствуйте! Хочу увидеть всю тему целиком, прежде чем решать задачи. Где это объясняют?","lec"],
+["👩‍🏫 Дана Ермековна, преподаватель","Добрый день! Новая тема сложная. Сначала нужно дать системную картину и ключевые понятия.","lec"],
+["🧑‍💼 Тимур, студент","Добрый день! Нашей группе нужно отработать алгоритм решения на серии задач, пока он не станет привычным.","prac"],
+["👩‍🏫 Дана Ермековна, преподаватель","Здравствуйте! Практика идёт вяло. Нужны серия заданий и взаимопроверка по критериям. Что построим?","prac"],
+["🧑‍🎓 Данияр, студент","Добрый день! Хочу закрепить навык, много раз применив его на разных задачах. Куда мне идти?","prac"],
+["👩‍🎓 Алиса, студентка","Здравствуйте! Две команды хотят поспорить, оправдана ли балльная система, и защитить позиции фактами.","sem"],
+["👨‍🏫 Ержан Маратович, преподаватель","Добрый день! Нужно, чтобы студенты выступили с докладами и корректно оппонировали друг другу.","sem"],
+["🧑‍🎓 Бекзат, студент","Здравствуйте! Мы подготовили разные точки зрения на тему и хотим их аргументированно обсудить.","sem"],
+["👩‍🏫 Дана Ермековна, преподаватель","Здравствуйте! Нужно проверить гипотезу, снять замеры и оформить протокол опыта.","lab"],
+["🧑‍🔬 Айдос, магистрант","Добрый день! Мне нужно поставить эксперимент и аккуратно зафиксировать результаты измерений.","lab"],
+["👩‍🎓 Зарина, студентка","Здравствуйте! Хочу сама проверить закономерность на опыте, а не просто прочитать о ней.","lab"],
+["🧑‍🌾 Нурлан, студент","Добрый день! Текст на 6 страниц тяжело читать. Нужны схемы с пропусками и вопросы по ходу пары.","arm"],
+["👩‍🎓 Алиса, студентка","Здравствуйте! После пары я не понимаю, что усвоила. Нужны мини-итог и задания на закрепление.","arm"],
+["👨‍🏫 Серик Болатович, преподаватель","Добрый день! Хочу, чтобы студенты работали на лекции активно: заполняли схемы и отвечали на вопросы.","arm"]];
+const CH=[["Грант на цифровизацию вуза",120,0],["День открытых дверей: студенты в восторге",0,8],["Внеплановая проверка качества прошла хорошо",60,4],["Студенческий субботник",50,3],["Сбой интернета в общежитии: нужна поддержка",-40,-3],["Мастер-класс коллег по АРМ",0,6],["Благодарность от родителей",30,5]];
+const SCI=[
+["Конструктивное выравнивание","Цели обучения, методы и оценивание должны быть согласованы между собой.","Силлабус, УМК и РУП работают как единая система: если цель «применять», то и задания, и оценка проверяют применение, а не только запоминание.","Biggs, J. (1996). Enhancing teaching through constructive alignment. Higher Education."],
+["Активное обучение","Когда студенты работают и обсуждают, а не только слушают, результаты выше.","Мета-анализ 225 исследований в STEM показал, что активное обучение улучшает результаты экзаменов и снижает долю неудач. Поэтому в городе есть семинар, практика, лаборатория и АРМ.","Freeman, S. и др. (2014). Active learning increases student performance in STEM. PNAS."],
+["Практика извлечения из памяти","Самопроверка закрепляет знания лучше простого перечитывания.","Вопросы по ходу занятия и мини-итог в АРМ используют эффект тестирования. Игра тоже строится на вспоминании: нужно выбрать здание по ситуации.","Roediger, H., Karpicke, J. (2006). Test-enhanced learning. Psychological Science."],
+["Разнесённое повторение","Повторы с интервалами работают лучше, чем один длинный повтор.","Поэтому кейсы в игре повторяются в разных формулировках, а «Зоны роста» в конце показывают, что стоит повторить.","Cepeda, N. и др. (2006). Distributed practice in verbal recall tasks. Psychological Bulletin."],
+["Когнитивная нагрузка","Рабочая память ограничена: новичку нужны структура и ясные инструкции.","Путеводная башня и обучающий этап в начале уменьшают лишнюю нагрузку: сначала короткая инструкция, затем сразу применение.","Sweller, J. (1988). Cognitive load during problem solving. Cognitive Science."],
+["Формирующее оценивание","Быстрая обратная связь помогает корректировать обучение в процессе.","В игре после каждого хода объясняется, почему здание подходит или не подходит. Ошибка здесь возможность разобраться, а не наказание.","Black, P., Wiliam, D. (1998). Assessment and classroom learning. Assessment in Education."],
+["Зона ближайшего развития","Лучше всего учиться на задачах чуть сложнее текущего уровня, при поддержке.","Подсказки, обучающий кейс и постепенный рост числа зданий создают такую поддержку, которую можно убрать по мере роста уверенности.","Выготский, Л. С. (1934). Мышление и речь."],
+["Опытное обучение","Знание закрепляется в цикле: действие, рефлексия, обобщение, новое действие.","Построил здание, увидел результат, прочитал объяснение, применил в следующем кейсе: так работает игровой цикл.","Kolb, D. (1984). Experiential Learning."],
+["Кредитная технология и трудозатраты","Кредит измеряет весь объём работы студента, а не только часы в аудитории.","В Казахстане один академический кредит равен 30 академическим часам, включая аудиторную и самостоятельную работу. Точные нормы уточняйте в действующих правилах и академической политике вашего вуза.","Правила организации учебного процесса по кредитной технологии обучения (РК); академические политики вузов."]];
+</script>
+<script>
+const T=THREE,N=11,TS=2,C=(N-1)/2,wx=i=>(i-C)*TS,isPlot=(i,j)=>i>=1&&i<=N-2&&j>=1&&j<=N-2&&i!=C&&j!=C;
+const MOB=matchMedia("(pointer:coarse)").matches||innerWidth<700;
+const R=(a,b)=>a+Math.random()*(b-a),shuf=a=>a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+let S,snd=true,ac;
+function beep(f,d=.15,ty="triangle"){if(!snd)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.value=.06;o.connect(g);g.connect(ac.destination);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+const cvs=$("#cv");let rd;try{rd=new T.WebGLRenderer({canvas:cvs,antialias:!MOB})}catch(e){}
+if(!rd){document.body.insertAdjacentHTML("beforeend","<p style='padding:30px;position:relative'>Для игры нужен браузер с поддержкой WebGL.</p>");throw new Error("no webgl")}
+rd.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));rd.shadowMap.enabled=true;rd.shadowMap.type=T.PCFSoftShadowMap;
+const sc=new T.Scene(),cam=new T.PerspectiveCamera(40,1,.5,220);sc.background=new T.Color("#cfeeff");sc.fog=new T.Fog("#cfeeff",30,90);
+const hemi=new T.HemisphereLight("#ffffff","#b7d7a8",.75),sun=new T.DirectionalLight("#fff3d6",.85);sc.add(hemi,sun);
+sun.castShadow=true;sun.shadow.mapSize.set(MOB?1024:2048,MOB?1024:2048);Object.assign(sun.shadow.camera,{left:-20,right:20,top:20,bottom:-20,near:1,far:70});
+const MC={},mt=(c,o)=>o?new T.MeshLambertMaterial(Object.assign({color:c},o)):(MC[c]||(MC[c]=new T.MeshLambertMaterial({color:c})));
+const winMat=new T.MeshLambertMaterial({color:"#bfe3ff",emissive:"#ffd36b",emissiveIntensity:0}),lampMat=new T.MeshLambertMaterial({color:"#fff8d6",emissive:"#ffd36b",emissiveIntensity:.2});
+const B=(g,c,x,y,z,o)=>{const m=new T.Mesh(g,typeof c=="string"?mt(c,o):c);m.position.set(x,y,z);return m};
+const bx=(w,h,d,c,x,y,z,o)=>B(new T.BoxGeometry(w,h,d),c,x,y,z,o),cy=(r,h,c,x,y,z,s=16,o)=>B(new T.CylinderGeometry(r,r,h,s),c,x,y,z,o),cn=(r,h,c,x,y,z,s=16)=>B(new T.ConeGeometry(r,h,s),c,x,y,z),sp=(r,c,x,y,z)=>B(new T.SphereGeometry(r,16,12),c,x,y,z);
+function wins(g,xs,y,z,w=.16,h=.2){for(const x of xs)for(const s of[1,-1]){const m=B(new T.BoxGeometry(w,h,.03),winMat,x,y,z*s);g.add(m)}}
+function tree(x,z,s=1){const g=new T.Group();if(Math.random()<.55)g.add(cy(.07,.5,"#8b5a2b",0,.25,0,6),cn(.42,.9,"#3fa56a",0,.9,0,8),cn(.3,.7,"#55c27f",0,1.4,0,8));else g.add(cy(.07,.6,"#8b5a2b",0,.3,0,6),sp(.45,Math.random()<.5?"#58b86a":"#7ccf6e",0,.95,0));g.position.set(x,0,z);g.scale.setScalar(s);g.traverse(o=>{o.castShadow=true});return g}
+const lblTex={};function lbl(t){if(!lblTex[t]){const c=document.createElement("canvas");c.width=c.height=128;const x=c.getContext("2d");x.fillStyle="#fff";x.strokeStyle=BD[t][2];x.lineWidth=8;x.beginPath();x.arc(64,64,54,0,6.3);x.fill();x.stroke();x.font="64px serif";x.textAlign="center";x.textBaseline="middle";x.fillText(BD[t][1],64,70);lblTex[t]=new T.CanvasTexture(c)}const s=new T.Sprite(new T.SpriteMaterial({map:lblTex[t],depthTest:false,transparent:true}));s.scale.set(.85,.85,1);s.renderOrder=9;return s}
+function mk(t,lv,nolbl){const g=new T.Group();let h=2,m;g.add(bx(1.75,.08,1.75,"#e8efe9",0,.04,0));
+if(t=="guide"){g.add(bx(1.3,.25,1.3,"#e8efe9",0,.2,0),cy(.38,2,"#2fb8a8",0,1.3,0),cn(.5,.7,"#f2a900",0,2.65,0,8),sp(.1,"#fff",0,3.05,0));m=B(new T.TorusGeometry(.52,.07,8,20),"#f2a900",0,1.9,0);m.rotation.x=Math.PI/2;g.add(m);for(let k=0;k<6;k++){const a=k*1.05;g.add(B(new T.BoxGeometry(.1,.16,.03),winMat,Math.sin(a)*.38,1.4+(k%2)*.35,Math.cos(a)*.38))}h=3.2}
+else if(t=="syl"){g.add(bx(1.5,.9,1.1,"#f6e7c1",0,.5,0),bx(.3,.5,.05,"#7a5230",0,.33,.56));m=cn(1.15,.8,"#c9822b",0,1.35,0,4);m.rotation.y=Math.PI/4;m.scale.set(.95,1,.72);g.add(m);for(const x of[-.4,.4]){const s=cy(.12,1.1,"#f2a900",x,1.05,.62);s.rotation.z=Math.PI/2;g.add(s)}wins(g,[-.5,.5],.6,.56);h=1.8}
+else if(t=="umk"){g.add(bx(1.6,.8,1.1,"#5b5bd6",0,.48,0),cy(.24,1.4,"#7a7af0",-.55,.78,-.1),cy(.28,1.9,"#8a8aff",0,1.03,-.15),cy(.24,1.4,"#7a7af0",.55,.78,-.1),cn(.3,.4,"#f2a900",0,2.18,-.15,12));for(let i=0;i<3;i++)g.add(bx(1.4,.05,.02,"#fff",0,.3+i*.2,.56));h=2.4}
+else if(t=="rup"){g.add(bx(1.7,.2,1.3,"#e5e1d6",0,.18,0),bx(1.5,.7,1,"#d9d4c7",0,.63,0),bx(1.6,.1,1.1,"#b8b3a4",0,1.03,0));for(const x of[-.6,-.2,.2,.6])g.add(cy(.07,.8,"#fff",x,.68,.58));m=cn(1,.5,"#c9c3b2",0,1.33,0,4);m.rotation.y=Math.PI/4;m.scale.set(.95,1,.7);g.add(m);wins(g,[-.45,0,.45],.7,.52);h=1.7}
+else if(t=="credits"){g.add(bx(1,.6,1,"#e6a817",0,.38,0),bx(.8,1.4,.8,"#f2c14e",0,1.38,0));m=cy(.35,.08,"#fff",0,1.7,.42);m.rotation.x=Math.PI/2;g.add(m,bx(.04,.25,.03,"#333",0,1.78,.47),bx(.2,.04,.03,"#333",.08,1.74,.47));m=cn(.6,.6,"#8a5a00",0,2.4,0,4);m.rotation.y=Math.PI/4;g.add(m);for(const x of[-.6,.65])g.add(cy(.18,.06,"#f2a900",x,.12,.62));wins(g,[-.2,.2],1.15,.41);h=2.7}
+else if(t=="lec"){for(let i=0;i<4;i++){m=B(new T.CylinderGeometry(.5+i*.2,.5+i*.2,.22,20,1,false,0,Math.PI),i%2?"#6bb6ff":"#4aa3ff",0,.19+i*.22,-.1);m.rotation.y=Math.PI/2;g.add(m)}g.add(bx(1.1,.1,.5,"#fff",0,.13,.55),cy(.03,1.3,"#fff",.85,.73,.3,6),bx(.3,.2,.02,"#ef5b5b",1,1.23,.3));h=1.3}
+else if(t=="prac"){g.add(bx(1.5,.8,1.1,"#ff9f5a",0,.48,0),cy(.12,1,"#8a8f99",.55,1.18,-.3));for(const x of[-.5,0,.5]){m=bx(.45,.3,1.1,"#e07a30",x,1.03,0);m.rotation.z=.35;g.add(m)}m=B(new T.TorusGeometry(.3,.08,8,16),"#fff",0,.58,.58);g.add(m);for(let i=0;i<6;i++){const a=i*Math.PI/3;m=bx(.1,.1,.08,"#555",Math.cos(a)*.38,.58+Math.sin(a)*.38,.58);m.rotation.z=a;g.add(m)}wins(g,[-.55,.55],.55,.56);h=1.7}
+else if(t=="sem"){g.add(cy(.75,.8,"#ff7a8a",0,.48,0,20),B(new T.SphereGeometry(.75,20,12,0,Math.PI*2,0,Math.PI/2),"#ffc2c9",0,.88,0),cy(.12,.3,"#f2a900",0,1.58,0),cn(.15,.25,"#f2a900",0,1.86,0));for(let i=0;i<8;i++){const a=i*Math.PI/4;m=bx(.15,.3,.05,"#fff7c9",Math.sin(a)*.76,.53,Math.cos(a)*.76);m.rotation.y=a;g.add(m)}h=2.1}
+else if(t=="lab"){g.add(bx(1.3,1,1,"#bff3e3",0,.58,0,{transparent:true,opacity:.72}),bx(1.34,.08,1.04,"#fff",0,1.1,0),bx(1.34,.08,1.04,"#fff",0,.12,0),cy(.12,.6,"#2fa07c",-.3,.42,0),cy(.09,.3,"#fff",0,1.78,0),sp(.28,"#3cc9a0",0,1.43,0),cy(.02,.8,"#888",.5,1.48,-.3));h=2.1}
+else{const c1=new T.Color("#2fb8a8"),c2=new T.Color("#f2a900");for(let i=0;i<6;i++){const c="#"+c1.clone().lerp(c2,i/5).getHexString(),hh=.2+i*.18;g.add(bx(.28,hh,1,c,-.7+i*.28,hh/2+.08,0,{emissive:c,emissiveIntensity:.3}))}g.add(sp(.12,"#f2a900",.85,1.45,0));for(let i=0;i<3;i++){m=bx(.4,.03,.28,"#fff",-.5+i*.5,1.4+i*.1,.1);m.rotation.y=i*.5;g.add(m)}h=1.6}
+if(lv>=2){g.add(bx(.5,.3,.5,"#fff",0,h+.15,0),sp(.1,"#f2a900",0,h+.4,0),cy(.02,.5,"#999",.2,h+.55,.2,6),bx(.25,.15,.02,"#1fa971",.33,h+.7,.2));h+=.3}
+if(lv>=3){g.add(cy(.03,.9,"#999",0,h+.45,0,6),bx(.4,.25,.02,"#ef5b5b",.2,h+.75,0));m=B(new T.TorusGeometry(.95,.05,6,28),"#f2a900",0,.1,0,{emissive:"#f2a900",emissiveIntensity:.6});m.rotation.x=Math.PI/2;g.add(m);m=B(new T.CylinderGeometry(.18,.18,7,10,1,true),new T.MeshBasicMaterial({color:"#ffe08a",transparent:true,opacity:.22,depthWrite:false}),0,h+3.5,0);m.userData.nb=1;g.add(m)}
+g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}if(o.userData.nb)o.castShadow=false});g.userData.h=h;if(!nolbl){const s=lbl(t);s.position.y=h+(lv>=3?1.1:.7);g.add(s);g.userData.sp=s;g.userData.sy=s.position.y}return g}
+// мир
+sc.add(bx(N*TS+.4,1.4,N*TS+.4,"#b99a7a",0,-.85,0),bx(N*TS+2.4,.5,N*TS+2.4,"#ecdcaa",0,-1.3,0),bx(N*TS+3.6,.3,N*TS+3.6,"#f4ead0",0,-1.42,0));
+const water=B(new T.PlaneGeometry(120,120,36,36),"#5ec4e8",0,-1.5,0,{transparent:true,opacity:.88});water.geometry.rotateX(-Math.PI/2);const wp0=Float32Array.from(water.geometry.attributes.position.array);sc.add(water);
+const tiles=[];
+for(let i=0;i<N;i++)for(let j=0;j<N;j++){const x=wx(i),z=wx(j),road=i==C||j==C,edge=i==0||j==0||i==N-1||j==N-1,pl=isPlot(i,j),cross=i==C&&j==C;
+const col=cross?"#e8e2d2":road?"#4a5262":edge?"#8fcb7a":(i+j)%2?"#bfe3a8":"#c8ebb2";
+const m=bx(1.96,road?.2:.3,1.96,col,x,road?-.1:-.15,z);m.receiveShadow=true;m.userData={i,j,pl};tiles.push(m);sc.add(m);
+if(pl){const p=bx(1.6,.03,1.6,"#e3f5d2",x,.015,z);p.receiveShadow=true;sc.add(p)}
+if(road&&!cross){const ax=j==C;for(let k=-1;k<=1;k+=2){const sw=bx(ax?1.96:.2,.06,ax?.2:1.96,"#d9dee6",ax?x:k*.88,.03,ax?k*.88:z);sw.receiveShadow=true;sc.add(sw)}const d=bx(ax?.7:.07,.01,ax?.07:.7,"#fff",x,.01,z);sc.add(d);if(i%2==0||j%2==0){for(const k of[-1,1]){const lp=new T.Group(),lx=ax?x:k*.94,lz=ax?k*.94:z;lp.add(cy(.03,1.1,"#6b7280",0,.55,0,6),B(new T.SphereGeometry(.09,10,8),lampMat,0,1.15,0));lp.position.set(lx,0,lz);sc.add(lp)}}}
+if(edge&&!road){const nt=1+(Math.random()<.6?1:0);for(let k=0;k<nt;k++)sc.add(tree(x+R(-.6,.6),z+R(-.6,.6),R(.8,1.4)));if(Math.random()<.5)sc.add(sp(.07,["#ef5b5b","#f2a900","#ff7a8a","#fff"][Math.floor(R(0,4))],x+R(-.7,.7),.08,z+R(-.7,.7)))}
+if((i==0&&j==0)||(i==N-1&&j==N-1)){sc.add(cy(.8,.06,"#5ec4e8",x,.02,z,20))}}
+const fnt=new T.Group();fnt.add(cy(.42,.22,"#cfd8e3",0,.1,0,20),cy(.08,.7,"#cfd8e3",0,.5,0),cy(.34,.06,"#7fd3ee",0,.22,0,20));const fj=sp(.16,"#7fd3ee",0,.95,0);fnt.add(fj);fnt.traverse(o=>{o.castShadow=true});sc.add(fnt);
+// горы, облака, лодки, птицы, машины
+for(let i=0;i<12;i++){const a=i/12*6.28+R(-.2,.2),r=R(58,72),h=R(8,16),m=cn(R(6,10),h,i%3?"#9cc7b0":"#b9c9d9",Math.cos(a)*r,h/2-2,Math.sin(a)*r,6);sc.add(m)}
+const clouds=[];for(let i=0;i<9;i++){const c=new T.Group();for(let k=0;k<4;k++){const s=sp(R(1,1.8),"#fff",k*1.3,R(0,.5),R(-.5,.5));s.material=s.material.clone();s.material.transparent=true;s.material.opacity=.92;c.add(s)}c.position.set(R(-40,40),R(11,18),R(-40,40));clouds.push(c);sc.add(c)}
+const boats=[];for(let i=0;i<3;i++){const b=new T.Group();b.add(bx(.9,.2,.38,["#ef5b5b","#f2a900","#5b8def"][i],0,0,0),cy(.02,.9,"#8b5a2b",0,.55,0,6),bx(.02,.6,.5,"#fff",0,.6,.05));b.userData={r:15.5+i*2.2,s:.08+.03*i,a:i*2.1};sc.add(b);boats.push(b)}
+const birds=[];for(let i=0;i<7;i++){const b=new T.Group(),w1=bx(.32,.02,.12,"#fff",-.16,0,0),w2=bx(.32,.02,.12,"#fff",.16,0,0);b.add(w1,w2);b.userData={r:R(6,15),a:R(0,6.28),s:R(.15,.3),y:R(6,10),w1,w2};sc.add(b);birds.push(b)}
+const cars=[];const CC=["#ef5b5b","#f2a900","#5b8def","#2fb8a8","#9b7be0","#ffffff","#ff7a8a"];
+for(let i=0;i<14;i++){const g=new T.Group();g.add(bx(.5,.16,.24,CC[i%7],0,.17,0),bx(.26,.13,.2,"#e9f2fb",-.02,.3,0));for(const x of[-.16,.16])for(const z of[-.12,.12])g.add(cy(.06,.05,"#222",x,.07,z,8)).children.at(-1).rotation.x=Math.PI/2;g.traverse(o=>{o.castShadow=true});const ax=i%2,lane=(Math.random()<.5?-1:1)*.5;cars.push({g,ax,lane,p:R(-10,10),v:R(1.1,1.9)*(ax?-1:1)*Math.sign(lane)});sc.add(g)}
+const mark=new T.Mesh(new T.PlaneGeometry(1.8,1.8),new T.MeshBasicMaterial({color:"#0e9f8e",transparent:true,opacity:.5}));mark.rotation.x=-Math.PI/2;mark.position.y=.05;mark.visible=false;sc.add(mark);
+let ghost=null,shake=0,fogK=.5;
+// частицы
+const PN=700,pp=new Float32Array(PN*3),pc=new Float32Array(PN*3),pv=new Float32Array(PN*3),pl=new Float32Array(PN);pp.fill(-100);
+const pg=new T.BufferGeometry();pg.setAttribute("position",new T.BufferAttribute(pp,3));pg.setAttribute("color",new T.BufferAttribute(pc,3));sc.add(new T.Points(pg,new T.PointsMaterial({size:.22,vertexColors:true,transparent:true,depthWrite:false})));
+const COLS=["#0e9f8e","#f2a900","#ef5b5b","#5b5bd6","#3cc9a0","#ff7a8a"];
+function burst(p,col,n=40,s2=4,up=3){const c=new T.Color(col);let k=0;for(let i=0;i<PN&&k<n;i++)if(pl[i]<=0){const a=R(0,6.28),s=R(.3,1)*s2;pp.set([p.x,p.y,p.z],i*3);pv.set([Math.cos(a)*s,R(1,up)+up*.4,Math.sin(a)*s],i*3);const cc=col=="rand"?new T.Color(COLS[Math.floor(R(0,6))]):c;pc.set([cc.r,cc.g,cc.b],i*3);pl[i]=R(.8,1.6);k++}}
+function fl(p,t,c){const v=p.clone().project(cam),e=document.createElement("div");e.className="fl";e.textContent=t;e.style.cssText=`left:${(v.x+1)/2*innerWidth}px;top:${(1-v.y)/2*innerHeight}px;color:${c}`;$("#ui").append(e);setTimeout(()=>e.remove(),1800)}
+// жители
+const PC=["#ef8e7a","#5b8def","#9b7be0","#f2a900","#2fb8a8"],walkers=[];
+function addW(n){for(let i=0;i<n&&walkers.length<70;i++){const g=new T.Group();g.add(cy(.09,.3,PC[i%5],0,.2,0,8),sp(.09,"#f2c9a5",0,.44,0));const ax=Math.random()<.5;walkers.push({g,ax,o:(Math.random()<.5?-1:1)*.88,p:R(-9,9),v:R(.5,1.1)*(Math.random()<.5?-1:1)});sc.add(g)}}
+</script>
+<style>.rk{display:none}@media(min-width:561px){.rk{display:inline}}textarea{width:100%;height:120px;user-select:text;-webkit-user-select:text;font:13px system-ui}</style>
+<script>
+// камера
+const A={az:.7,el:.75,d:26,auto:1},V={az:.7,el:.75,d:26};
+function cupd(dt){const k=1-Math.exp(-dt*9);V.az+=(A.az-V.az)*k;V.el+=(A.el-V.el)*k;V.d+=(A.d-V.d)*k;const d=V.d,s=shake?R(-1,1)*shake:0;cam.position.set(d*Math.cos(V.el)*Math.sin(V.az)+s,d*Math.sin(V.el),d*Math.cos(V.el)*Math.cos(V.az));cam.lookAt(0,0,0)}
+function layout(){const r=document.documentElement.style;r.setProperty("--hh",$("#hud").offsetHeight+"px");r.setProperty("--ph",$("#pal").offsetHeight+"px")}
+function size(){rd.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();if(!size.i){A.d=V.d=cam.aspect<.8?42:cam.aspect<1.2?34:26;size.i=1}layout()}
+addEventListener("resize",size);addEventListener("orientationchange",()=>setTimeout(size,200));
+if(window.ResizeObserver){const ro=new ResizeObserver(layout);ro.observe($("#hud"));ro.observe($("#pal"))}
+const ptr=new Map(),rc=new T.Raycaster();let pd=null,dist0=0,multi=false;
+const zoom=f=>{A.d=Math.max(11,Math.min(46,A.d*f));A.auto=0;tut("rotate")};
+cvs.addEventListener("pointerdown",e=>{cvs.setPointerCapture(e.pointerId);ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});pd=pd||{m:0};A.auto=0;if(ptr.size==2){multi=true;const[a,b]=[...ptr.values()];dist0=Math.hypot(a.x-b.x,a.y-b.y)}});
+cvs.addEventListener("pointermove",e=>{const p=ptr.get(e.pointerId);if(!p)return;const dx=e.clientX-p.x,dy=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;if(pd)pd.m+=Math.abs(dx)+Math.abs(dy);
+if(ptr.size==2){const[a,b]=[...ptr.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(d>0)zoom(dist0/d);dist0=d}else{A.az-=dx*.006;A.el=Math.max(.3,Math.min(1.35,A.el+dy*.005));if(pd&&pd.m>40)tut("rotate")}});
+const upf=e=>{ptr.delete(e.pointerId);if(pd&&pd.m<8&&!multi&&ptr.size==0)pick(e);if(!ptr.size){pd=null;multi=false}};cvs.addEventListener("pointerup",upf);cvs.addEventListener("pointercancel",e=>{ptr.delete(e.pointerId);if(!ptr.size){pd=null;multi=false}});
+cvs.addEventListener("wheel",e=>{e.preventDefault();zoom(1+Math.max(-80,Math.min(80,e.deltaY))*.0012)},{passive:false});
+addEventListener("keydown",e=>{if(e.key=="ArrowLeft")A.az-=.15;else if(e.key=="ArrowRight")A.az+=.15;else if(e.key=="ArrowUp")A.el=Math.min(1.35,A.el+.08);else if(e.key=="ArrowDown")A.el=Math.max(.3,A.el-.08);else if(e.key=="+"||e.key=="=")zoom(.9);else if(e.key=="-")zoom(1.1);else return;A.auto=0;tut("rotate")});
+function hit(e){rc.setFromCamera(new T.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),cam);if(S){const cs=Object.values(S.cells);if(cs.length){const hb=rc.intersectObjects(cs.map(c=>c.g),true)[0];if(hb){let o=hb.object;while(o.parent&&!cs.some(c=>c.g===o))o=o.parent;const c=cs.find(c=>c.g===o);if(c)return{i:c.i,j:c.j,pl:true}}}}const h=rc.intersectObjects(tiles)[0];return h?h.object.userData:null}
+const cap=t=>{$("#cap").textContent=t};
+function setPend(i,j){S.pend={i,j};mark.position.set(wx(i),.05,wx(j));mark.visible=true;if(ghost)sc.remove(ghost);ghost=null;if(S.sel){ghost=mk(S.sel,1,true);ghost.position.set(wx(i),0,wx(j));ghost.traverse(o=>{if(o.material){o.material=o.material.clone();o.material.transparent=true;o.material.opacity=.55}});sc.add(ghost)}cfb();tut("pend");cap("Нажмите «Построить» или коснитесь этого участка ещё раз.")}
+function pick(e){if(!S||S.busy||S.mode!="play")return;const h=hit(e);if(!h||!h.pl)return;const c=S.cells[h.i+","+h.j];
+if(c){info(c,h.i,h.j);return}$("#inf").style.display="none";if(S.done){cap("Обращение решено. Нажмите «Следующий ход».");return}if(!S.sel){cap("Сначала выберите здание внизу.");return}
+if(S.pend&&S.pend.i==h.i&&S.pend.j==h.j)build();else setPend(h.i,h.j)}
+// интерфейс
+const rank=p=>p<40?"Посёлок":p<90?"Городок":p<140?"Город":"Мегаполис знаний";
+function clearSel(){S.sel=null;S.pend=null;mark.visible=false;if(ghost){sc.remove(ghost);ghost=null}}
+function pal(){$("#bl").innerHTML=ORD.map(k=>`<button class="bc ${S.sel==k?"sel":""} ${S.tm&&S.tut==2&&k=="guide"?"pulse":""}" style="--c:${BD[k][2]}" data-k="${k}" aria-label="${BD[k][0]}"><span>${BD[k][1]}</span>${BD[k][5]}<small>💰${BD[k][3]}</small></button>`).join("");
+document.querySelectorAll(".bc").forEach(b=>b.onclick=()=>{if(S.mode!="play"||S.busy)return;if(S.done){cap("Обращение решено. Нажмите «Следующий ход».");return}const k=b.dataset.k;S.sel=k;S.pend=null;mark.visible=false;if(ghost){sc.remove(ghost);ghost=null}pal();cap(BD[k][1]+" "+BD[k][0]+": "+BD[k][4]+" Коснитесь свободного участка.");cfb();tut("select");if(MOB)$("#cc").classList.add("mini");sizeSoon()})}
+const sizeSoon=()=>setTimeout(layout,30);
+function cfb(){const b=$("#cf");if(S&&S.sel&&S.pend&&S.mode=="play"&&!S.done){b.style.display="block";b.textContent="🔨 Построить: "+BD[S.sel][0]+" (💰 "+BD[S.sel][3]+")"}else b.style.display="none"}
+$("#cf").onclick=()=>build();
+function hud(){$("#hm").textContent="💰 "+S.money;$("#tb").style.width=S.trust+"%";$("#tb").style.background=S.trust>60?"#1fa971":S.trust>30?"#f2a900":"#ef5b5b";$("#tv").textContent=S.trust;$("#hp").innerHTML="👥 "+S.pop+' <span class="rk">· '+rank(S.pop)+"</span>";$("#hn").textContent=S.tm?"Обучение":"Ход "+Math.min(S.n,S.q.length)+" из "+S.q.length;layout()}
+function inc(){let s=0;for(const c of Object.values(S.cells))s+=20+15*(c.lv-1);return s+40*S.sets.filter(x=>x).length}
+function ov(h){const o=$("#ov");o.innerHTML=h?`<div class="pn gl pe">${h}</div>`:"";o.classList.toggle("on",!!h)}
+// научная база и шпаргалка
+const SV={tab:0,i:0};
+function sci(tab=0,i=0){SV.tab=tab;SV.i=i;const L=tab?SCI:ORD,n=L.length;
+const chips=L.map((x,k)=>`<button data-i="${k}" class="${k==i?"on":""}" aria-label="${tab?SCI[k][0]:BD[x][0]}">${tab?k+1:BD[x][1]}</button>`).join("");let card;
+if(tab==0){const b=BD[ORD[i]];card=`<h3>${b[1]} ${b[0]}</h3><div class="k">Что это</div><p>${b[4]}</p><div class="k">Пример из практики</div><p>${b[7]}</p><div class="k">Научная опора</div><p>${b[8]}</p>`}
+else{const s=SCI[i];card=`<h3>${s[0]}</h3><p><b>${s[1]}</b></p><div class="k">Как это связано с игрой</div><p>${s[2]}</p><div class="k">Источник</div><p class="ref">${s[3]}</p>`}
+ov(`<h2>📚 Научная база</h2><div class="tabs"><button data-t="0" class="${tab?"":"on"}">Понятия города</button><button data-t="1" class="${tab?"on":""}">Почему это работает</button></div><div class="chips">${chips}</div><div class="bodyx"><div class="card">${card}</div></div><div class="ft"><button class="btn g" id="pv">◀ Назад</button><button class="btn g" id="nx2">Дальше ▶</button><button class="btn" id="x">Закрыть</button></div>`);
+document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>sci(+b.dataset.t,0));document.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>sci(tab,+b.dataset.i));
+$("#pv").onclick=()=>sci(tab,(i+n-1)%n);$("#nx2").onclick=()=>sci(tab,(i+1)%n);$("#x").onclick=()=>{ov("");if(S.mode=="intro")showIntro();else if(S.mode=="end"&&S.back)S.back()}}
+function cheat(label,next){ov(`<h2>⚡ Шпаргалка за 30 секунд</h2><p class="mu" style="margin:2px 0 6px">Запомните главную мысль каждого здания и сразу применяйте.</p><div class="bodyx"><div class="card">${ORD.map(k=>`<p style="margin:5px 0">${BD[k][1]} <b>${BD[k][0]}</b>: ${BD[k][6]}</p>`).join("")}</div></div><div class="ft"><button class="btn" id="go">${label}</button></div>`);$("#go").onclick=()=>{ov("");next()}}
+$("#bg").onclick=()=>{if((S.mode=="play"&&!S.busy)||S.mode=="end")sci()};$("#hl").onclick=()=>{if(S.mode=="play"&&!S.busy)cheat("Продолжить",()=>{})};
+$("#sd").onclick=()=>{snd=!snd;$("#sd").textContent=snd?"🔊":"🔇"};
+// старт
+function showIntro(){ov(`<h1>Город Знаний</h1><div class="bodyx"><p>Добро пожаловать! Вы главный методист растущего кампуса. К вам обращаются студенты и коллеги с реальными вопросами. По каждому обращению постройте здание, которое решает именно эту задачу: башню-справочник, дом силлабуса, библиотеку УМК, амфитеатр и другие.</p><p class="mu">Сначала короткое обучение (около минуты): вы сразу попробуете построить первое здание. Затем начнётся игра. Ошибка не страшна: после неё вы получите понятное объяснение. Камеру можно вращать пальцем или мышью.</p></div><div class="ft"><button class="btn" id="tu">▶ Начать с обучения</button><button class="btn g" id="go">Сразу играть</button><button class="btn g" id="gb">📚 Научная база</button></div>`);
+$("#tu").onclick=()=>{ov("");startTut()};$("#go").onclick=()=>{ov("");cheat("Начать игру",startGame)};$("#gb").onclick=()=>sci()}
+function intro(){reset();S.mode="intro";A.auto=1;showIntro()}
+function reset(){if(S)for(const k in S.cells)sc.remove(S.cells[k].g);walkers.forEach(w=>sc.remove(w.g));walkers.length=0;if(S)clearSel();
+const q=shuf(ORD.flatMap(k=>shuf(K.filter(c=>c[2]==k)).slice(0,2)));
+S={mode:"play",money:520,trust:50,pop:0,n:0,cells:{},sets:[0,0,0],sel:null,pend:null,busy:0,q,cur:null,err:0,log:[],t0:0,done:0,tm:false,tut:null,hints:0};pal();hud();addW(6);$("#inf").style.display="none";$("#cc").style.display="none";$("#coach").style.display="none";cap("Выберите здание, затем участок.");cfb()}
+// обучение
+const TST=[["Осмотритесь","Проведите по городу пальцем или мышью, чтобы повернуть камеру. Двумя пальцами (или колесом мыши) можно приблизить.","rotate"],["Прочитайте обращение","Сверху просьба жителя. Нужно выбрать здание, которое решает именно эту задачу.",null],["Выберите здание","Нажмите на подсвеченное здание внизу. Башня 🧭 это справочник-путеводитель для общей навигации по вузу.","select"],["Выберите участок","Коснитесь любого свободного светлого участка: появится прозрачный макет здания.","pend"],["Постройте","Нажмите «Построить» (или коснитесь участка ещё раз).","built"]];
+function coach(){const c=$("#coach");if(!S.tm||S.tut==null){c.style.display="none";return}const s=TST[S.tut];c.style.display="block";
+c.innerHTML=`<div class="st">ОБУЧЕНИЕ · ШАГ ${S.tut+1} ИЗ ${TST.length}</div><b>${s[0]}</b><p>${s[1]}</p>${s[2]?"":'<button class="btn s" id="cn">Понятно</button>'}${s[2]=="rotate"?'<button class="btn s" id="cn">Готово</button>':""}<button class="btn g s" id="ck">Пропустить обучение</button>`;
+if($("#cn"))$("#cn").onclick=()=>{S.tut++;coach();pal()};$("#ck").onclick=()=>{c.style.display="none";cheat("Начать игру",startGame)};sizeSoon()}
+function tut(ev){if(!S||!S.tm||S.tut==null)return;if(TST[S.tut][2]==ev){S.tut++;if(ev=="built"||S.tut>=TST.length)S.tut=null;coach();pal()}}
+function startTut(){reset();S.tm=true;S.tut=0;S.mode="play";S.cur=K[0];S.t0=Date.now();A.auto=0;hud();pal();showCase();coach()}
+function startGame(){reset();turn()}
+function turn(){if(S.n>=S.q.length)return finale();S.cur=S.q[S.n];S.n++;S.done=0;S.hints=0;clearSel();pal();cfb();hud();S.busy=1;cap("Выберите здание, затем участок.");
+const d=1+Math.floor(Math.random()*6);let k=0;ov(`<div class="dice" id="dc">🎲</div>`);const dc=$("#dc");const iv=setInterval(()=>{dc.textContent=1+Math.floor(Math.random()*6);beep(300+k*20,.05);if(++k>9){clearInterval(iv);dc.textContent=d;dc.classList.add("st");const sal=60+20*d+inc();S.money+=sal;hud();beep(660,.2);setTimeout(()=>{ov("");if(S.n%3==0){const c=CH[Math.floor(Math.random()*CH.length)];S.money+=c[1];S.trust=Math.max(0,Math.min(100,S.trust+c[2]));hud();ov(`<div class="pn gl pe ch"><h2>🃏 Шанс</h2><p style="font:18px Georgia,serif">${c[0]}</p><p><b>${c[1]?(c[1]>0?"+":"")+c[1]+" кредитов ":""}${c[2]?(c[2]>0?"+":"")+c[2]+" доверия":""}</b></p><div class="ft"><button class="btn" id="ok">Продолжить</button></div></div>`);$("#ok").onclick=()=>{ov("");showCase(d,sal)}}else showCase(d,sal)},600)}},90)}
+function showCase(d,sal){S.busy=0;S.mode="play";S.t0=Date.now();const c=S.cur,e=$("#cc");e.className="gl ch pe";e.style.display="block";
+e.innerHTML=`<div class="who"><span>${c[0]}</span><button class="tg" id="tg" aria-label="Свернуть">▾</button></div><p>${c[1]}</p>${S.tm?"":`<div class="hn">🎲 ${d}: +${sal} кредитов · доход: ${inc()} в ход</div><div class="tm"><i id="tmb"></i></div><div class="sets">${SETS.map((s,i)=>`<span class="${S.sets[i]?"on":""}">${S.sets[i]?"🏅 ":""}${s[0]}</span>`).join("")}</div><div class="bt"><button class="btn g s" id="ht">💡 Подсказка (−15 💰)</button></div><div class="hint" id="hb" style="display:none"></div>`}`;
+$("#tg").onclick=()=>{e.classList.toggle("mini");$("#tg").textContent=e.classList.contains("mini")?"▴":"▾";sizeSoon()};
+if(!S.tm)$("#ht").onclick=()=>{if(S.hints)return;if(S.money<15){fl(new T.Vector3(0,3,0),"Не хватает кредитов","#ef5b5b");return}S.money-=15;S.hints=1;hud();const h=$("#hb");h.style.display="block";h.textContent="💡 "+BD[S.cur[2]][6]};sizeSoon()}
+function ease(k){const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(k-1,3)+c1*Math.pow(k-1,2)}
+const AN=[];
+function build(){if(!S||S.busy||!S.sel||!S.pend||S.done)return;const{i,j}=S.pend,t=S.sel,cost=BD[t][3];if(S.cells[i+","+j])return;
+if(S.money<cost){S.money+=100;S.trust=Math.max(0,S.trust-2);hud();fl(new T.Vector3(wx(i),2,wx(j)),"Кредитная линия +100","#8a5a00")}
+S.money-=cost;S.busy=1;const g=mk(t,1),pos=new T.Vector3(wx(i),0,wx(j));g.position.copy(pos);g.scale.y=.01;sc.add(g);if(ghost){sc.remove(ghost);ghost=null}mark.visible=false;S.pend=null;cfb();hud();beep(200,.2,"square");burst(pos.clone().setY(.2),"#d8c9a8",30,2.5,1);tut("built");
+AN.push({t:0,d:.9,f:k=>{g.scale.y=Math.max(.01,ease(k))},e:()=>judge(t,g,i,j,pos)})}
+function judge(t,g,i,j,pos){const c=S.cur,e=$("#cc");S.busy=0;e.classList.remove("mini");$("#coach").style.display="none";
+if(t==c[2]){const quick=!S.tm&&(Date.now()-S.t0)/1000<30,tp=pos.clone().setY(g.userData.h+1.2);S.cells[i+","+j]={type:t,lv:1,g,i,j};S.done=1;
+if(!S.tm){S.trust=Math.min(100,S.trust+6+(quick?3:0));S.pop+=8;S.money+=quick?30:0;addW(3)}hud();burst(tp,"rand",90,5,5);fl(tp,S.tm?"Отлично!":"+доверие"+(quick?" ⚡":""),"#1fa971");beep(660,.15);setTimeout(()=>beep(880,.2),120);setTimeout(()=>beep(1100,.3),260);
+clearSel();pal();cfb();let nw="";if(!S.tm)SETS.forEach((s,k)=>{if(!S.sets[k]&&s[1].every(x=>Object.values(S.cells).some(c=>c.type==x))){S.sets[k]=1;nw+="<br>🏅 Комплект «"+s[0]+"» собран: +40 кредитов в ход!";for(let n=0;n<6;n++)setTimeout(()=>burst(new T.Vector3(R(-6,6),R(3,7),R(-6,6)),"rand",60,6,6),n*220)}});
+e.className="gl ok pe";e.innerHTML=`<div class="who">✅ Верно${quick?" и быстро!":""}, благодарим Вас!</div><p>${BD[t][1]} ${BD[t][0]}. ${BD[t][4]}${nw}</p><div class="hn">Пример: ${BD[t][7]}</div><button class="btn" id="nx">${S.tm?"Перейти к игре":S.n>=S.q.length?"Завершить город":"Следующий ход"}</button>`;
+$("#nx").onclick=()=>{e.style.display="none";if(S.tm)cheat("Начать игру",startGame);else turn()};sizeSoon()}
+else{const w=BD[c[2]];S.err++;if(!S.tm){S.trust=Math.max(0,S.trust-8);S.log.push(c[1]+" → нужно «"+w[0]+"», а выбрано «"+BD[t][0]+"»")}hud();shake=.35;beep(150,.3,"sawtooth");
+g.traverse(o=>{if(o.material&&o.material.color){o.material=o.material.clone();o.material.color.lerp(new T.Color("#8b93a7"),.8)}});burst(pos.clone().setY(1),"#8b93a7",40,3,3);fl(pos.clone().setY(2.2),S.tm?"Попробуем ещё раз":"Не то здание"+(S.tm?"":" · доверие −8"),"#c0392b");
+e.className="gl bad pe";e.innerHTML=`<div class="who">Почти получилось</div><p>«${BD[t][0]}» подходит для другого обращения: ${BD[t][4]}</p><p>Здесь лучше подойдёт ${w[1]} <b>${w[0]}</b>: ${w[4]}</p><div class="hn">Здание закрыто на доработку, половина стоимости возвращена. Пожалуйста, попробуйте ещё раз.</div>`;
+S.busy=1;if(S.tm){S.tut=2;S.sel=null;pal();coach()}AN.push({t:0,d:1.2,f:k=>{g.rotation.z=Math.sin(k*40)*.06*(1-k);g.scale.y=k>.7?Math.max(.01,1-(k-.7)/.3):1},e:()=>{sc.remove(g);S.money+=Math.round(BD[t][3]/2);S.busy=0;hud();if(S.trust<=0&&!S.tm)over()}})}}
+function info(c,i,j){const b=BD[c.type],upc=100+50*c.lv,e=$("#inf");e.style.display="block";e.innerHTML=`<b>${b[1]} ${b[0]}</b> · уровень ${c.lv}<p style="margin:4px 0;font-size:13px">${b[4]}</p>${c.lv<3?`<button class="btn s" id="upb" style="margin:0">⬆ Улучшить (💰 ${upc})</button>`:"🏆 Максимальный уровень"}<button class="btn g s" id="cl" style="margin:0 0 0 6px">✕</button>`;$("#cl").onclick=()=>e.style.display="none";
+if(c.lv<3)$("#upb").onclick=()=>{if(S.money<upc){fl(new T.Vector3(wx(i),2,wx(j)),"Не хватает кредитов","#c0392b");return}S.money-=upc;sc.remove(c.g);c.lv++;c.g=mk(c.type,c.lv);c.g.position.set(wx(i),0,wx(j));c.g.scale.y=.01;sc.add(c.g);S.trust=Math.min(100,S.trust+2);hud();const p=new T.Vector3(wx(i),c.g.userData.h+.5,wx(j));burst(p,"#f2a900",50,4,4);fl(p,"Уровень "+c.lv+"! +15 в ход","#8a5a00");beep(740,.25);AN.push({t:0,d:.8,f:k=>{c.g.scale.y=Math.max(.01,ease(k))}});info(c,i,j)}}
+function over(){S.mode="end";S.back=over;ov(`<h2>Городу нужна поддержка</h2><p>Доверие студентов снизилось. Это нормально на пути обучения. Ошибок: ${S.err}. Давайте повторим эти кейсы:</p><div class="bodyx"><div class="rep">${S.log.join("<br><br>")}</div></div><div class="ft"><button class="btn" id="rp">Попробовать ещё раз</button><button class="btn g" id="gb">📚 Научная база</button></div>`);$("#rp").onclick=()=>{ov("");startGame()};$("#gb").onclick=()=>sci()}
+function finale(){S.mode="end";S.back=finale;A.auto=2;$("#cc").style.display="none";const b=Object.keys(S.cells).length,sets=S.sets.filter(x=>x).length,score=S.trust*10+S.pop*5+b*50+sets*200-S.err*40+S.money,rk=S.err<=2?"Архитектор образования":S.err<=6?"Опытный методист":"Начинающий методист";
+const txt="ГОРОД ЗНАНИЙ: конспект\n\n"+ORD.map(k=>BD[k][1]+" "+BD[k][0]+": "+BD[k][4]).join("\n")+"\n\nЗоны роста:\n"+(S.log.length?S.log.join("\n"):"Ошибок не было.");
+for(let n=0;n<14;n++)setTimeout(()=>burst(new T.Vector3(R(-8,8),R(3,9),R(-8,8)),"rand",70,6,7),n*400);
+ov(`<h2>Город собран. Благодарим Вас!</h2><p>Ранг: <b>${rk}</b> · очки: <b>${score}</b></p><p>🤝 доверие ${S.trust} · 👥 жителей ${S.pop} · 🏗️ зданий ${b} · ошибок ${S.err}</p><div>${SETS.map((s,i)=>`<span class="bd ${S.sets[i]?"on":""}">${S.sets[i]?"🏅 ":""}${s[0]}</span>`).join("")}</div><div class="bodyx">${S.log.length?`<p><b>Зоны роста:</b></p><div class="rep">${S.log.join("<br><br>")}</div>`:"<p>Ни одной методической ошибки. Прекрасная работа!</p>"}<div id="cm"></div></div><div class="ft"><button class="btn" id="cp">Скопировать конспект</button><button class="btn g" id="gb">📚 Научная база</button><button class="btn g" id="rp">Новый город</button></div>`);
+$("#rp").onclick=intro;$("#gb").onclick=()=>sci();
+$("#cp").onclick=()=>{const fb=()=>{$("#cm").innerHTML="<p class='mu'>Выделите и скопируйте текст:</p><textarea readonly></textarea>";$("#cm").querySelector("textarea").value=txt};try{navigator.clipboard.writeText(txt).then(()=>{$("#cm").innerHTML="<p class='mu'>Конспект скопирован.</p>"},fb)}catch(e){fb()}}}
+</script>
+<script>
+const cD=new T.Color("#cfeeff"),cN=new T.Color("#26365f"),cG=new T.Color("#aeb6c4"),t1=new T.Color(),t2=new T.Color();
+let last=0,tm=0;
+function loop(t){requestAnimationFrame(loop);const dt=Math.min(.05,(t-last)/1e3||0);last=t;tm+=dt;
+if(A.auto)A.az+=dt*(A.auto==2?.25:.08);if(shake>0)shake=Math.max(0,shake-dt*1.5);cupd(dt);
+const ph=tm*.035,sh=Math.sin(ph),d=Math.max(.2,Math.min(1,.55+.7*sh)),n=1-d;
+sun.position.set(Math.cos(ph)*16,10+Math.max(0,sh)*10,Math.sin(ph)*16+4);sun.intensity=.2+.7*d;hemi.intensity=.3+.5*d;winMat.emissiveIntensity=Math.max(0,n-.15)*1.7;lampMat.emissiveIntensity=.2+n*1.8;
+const tr=S?S.trust/100:.5;fogK+=(tr-fogK)*dt*2;sc.fog.near=14+26*fogK;sc.fog.far=60+70*fogK;t1.lerpColors(cD,cN,n/.8);t2.copy(cG).multiplyScalar(.35+.65*d);sc.fog.color.lerpColors(t2,t1,fogK);sc.background.copy(sc.fog.color);
+fj.position.y=.95+Math.sin(tm*3)*.1;fj.scale.setScalar(1+Math.sin(tm*6)*.1);
+const pa=water.geometry.attributes.position;for(let i=0;i<pa.count;i++){const x=wp0[i*3],z=wp0[i*3+2];pa.setY(i,Math.sin(x*.3+tm)*.12+Math.cos(z*.25+tm*1.3)*.1)}pa.needsUpdate=true;
+clouds.forEach(c=>{c.position.x+=dt*.7;if(c.position.x>46)c.position.x=-46});
+boats.forEach(b=>{const u=b.userData;u.a+=u.s*dt;b.position.set(Math.cos(u.a)*u.r,-1.38+Math.sin(tm*2+u.a)*.05,Math.sin(u.a)*u.r);b.rotation.y=-u.a});
+birds.forEach(b=>{const u=b.userData;u.a+=u.s*dt;b.position.set(Math.cos(u.a)*u.r,u.y+Math.sin(tm+u.a)*.5,Math.sin(u.a)*u.r);b.rotation.y=-u.a;u.w1.rotation.z=Math.sin(tm*10+u.a)*.6;u.w2.rotation.z=-u.w1.rotation.z});
+const act=Math.min(cars.length,4+Math.floor((S?S.pop:0)/10));
+cars.forEach((c,i)=>{c.g.visible=i<act;if(i>=act)return;c.p+=c.v*dt;if(Math.abs(c.p)>11)c.p=-Math.sign(c.v)*11;if(c.ax==0){c.g.position.set(c.p,0,c.lane);c.g.rotation.y=c.v>0?0:Math.PI}else{c.g.position.set(c.lane,0,c.p);c.g.rotation.y=c.v>0?-Math.PI/2:Math.PI/2}});
+for(const w of walkers){w.p+=w.v*dt;if(Math.abs(w.p)>10)w.v*=-1;w.g.position.set(w.ax?w.p:w.o,Math.abs(Math.sin(tm*8+w.p))*.05,w.ax?w.o:w.p);w.g.rotation.y=w.ax?(w.v>0?Math.PI/2:-Math.PI/2):(w.v>0?0:Math.PI)}
+if(S){let k=0;for(const c of Object.values(S.cells)){const s=c.g.userData.sp;if(s)s.position.y=c.g.userData.sy+Math.sin(tm*2+k++)*.07}}
+if(mark.visible)mark.material.opacity=.35+.2*Math.sin(tm*5);
+for(let i=0;i<AN.length;i++){const a=AN[i];a.t+=dt;const k=Math.min(1,a.t/a.d);a.f(k);if(k>=1){AN.splice(i--,1);a.e&&a.e()}}
+for(let i=0;i<PN;i++){if(pl[i]>0){pl[i]-=dt;pv[i*3+1]-=7*dt;pp[i*3]+=pv[i*3]*dt;pp[i*3+1]+=pv[i*3+1]*dt;pp[i*3+2]+=pv[i*3+2]*dt;if(pl[i]<=0||pp[i*3+1]<0){pl[i]=0;pp[i*3+1]=-100}}}pg.attributes.position.needsUpdate=true;pg.attributes.color.needsUpdate=true;
+if(S&&S.mode=="play"&&S.cur&&!S.busy&&!S.tm&&!S.done){const b=document.getElementById("tmb");if(b)b.style.width=Math.max(0,1-(Date.now()-S.t0)/30000)*100+"%"}
+rd.render(sc,cam)}
+size();intro();requestAnimationFrame(loop);
+</script></body></html>
